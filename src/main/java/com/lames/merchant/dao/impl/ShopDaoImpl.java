@@ -10,7 +10,7 @@ import java.util.List;
 import com.lames.merchant.dao.IShopDao;
 import com.lames.merchant.model.Recipe;
 import com.lames.merchant.model.Shop;
-import com.lames.merchant.util.BDCPUtil;
+import com.lames.merchant.util.DBUtil;
 
 public class ShopDaoImpl implements IShopDao {
 
@@ -22,7 +22,7 @@ public class ShopDaoImpl implements IShopDao {
 
 	@Override
 	public List<Shop> findAll() {
-		Connection conn = BDCPUtil.getConnection();
+		Connection conn = DBUtil.getConnection();
 		String sql = "select shop_id,shop_name,service_starttime,service_endtime," + 
 				     "service_range,distribution_cost,shop_pic,business_pic,address from shop";
 		PreparedStatement ps = null;
