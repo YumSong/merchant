@@ -8,21 +8,53 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>merchant Maven Webapp</name>
 	<url>http://maven.apache.org</url>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-		</dependency>
-
-		<!--解决request.getServletContext().getRealPath，context报红的问题 -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
+  <dependencies>
+	  <dependency>
+		 <groupId>junit</groupId>
+		 <artifactId>junit</artifactId>
+		 <version>4.12</version>
+	  </dependency>     
+	<dependency>
+	    <groupId>org.hamcrest</groupId>
+	    <artifactId>hamcrest-junit</artifactId>
+	    <version>2.0.0.0</version>
+	</dependency>	
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-dbcp2</artifactId>
+	    <version>2.4.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.oracle</groupId>
+	    <artifactId>ojdbc6</artifactId>
+	    <version>11.2.0.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>httpunit</groupId>
+	    <artifactId>httpunit</artifactId>
+	    <version>1.7</version>
+	</dependency>
+	<dependency>
+	    <groupId>rhino</groupId>
+	    <artifactId>js</artifactId>
+	    <version>1.7R2</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.activemq</groupId>
+	    <artifactId>activemq-all</artifactId>
+	    <version>5.15.4</version>
+	</dependency> 
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>2.9.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>		
+  </dependencies>  
 	<build>
 		<finalName>merchant</finalName>
 	</build>
