@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
-public class BDCPUtil {
+public class BdPoolUtil {
 	private static String divername = "oracle.jdbc.OracleDriver";
 	private static String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static String user = "system";

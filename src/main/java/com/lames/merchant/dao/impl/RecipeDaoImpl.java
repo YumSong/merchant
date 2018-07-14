@@ -9,13 +9,13 @@ import java.util.List;
 
 import com.lames.merchant.dao.IRecipeDao;
 import com.lames.merchant.model.Recipe;
-import com.lames.merchant.util.BDCPUtil;
+import com.lames.merchant.util.BdPoolUtil;
 
 public class RecipeDaoImpl implements IRecipeDao {
 
 	@Override
 	public Recipe find(Recipe recipe) {
-		Connection conn = BDCPUtil.getConnection();
+		Connection conn = BdPoolUtil.getConnection();
 		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe where re_id =?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -49,7 +49,7 @@ public class RecipeDaoImpl implements IRecipeDao {
 	
 	@Override
 	public List<Recipe> findAll() {
-		Connection conn = BDCPUtil.getConnection();
+		Connection conn = BdPoolUtil.getConnection();
 		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -85,7 +85,7 @@ public class RecipeDaoImpl implements IRecipeDao {
 	//注意所有sql语句不能加分号结束
 	@Override
 	public Recipe insert(Recipe recipe) {
-		Connection conn = BDCPUtil.getConnection();
+		Connection conn = BdPoolUtil.getConnection();
 		String sql = "insert into recipe(re_id,re_name,re_pic,detail,price,shop_id)" + 
 				      "values(S_recipe.nextVal,?,?,?,?,?)";
 		PreparedStatement ps = null;
@@ -116,7 +116,7 @@ public class RecipeDaoImpl implements IRecipeDao {
 
 	@Override
 	public Recipe modify(Recipe recipe) {
-		Connection conn = BDCPUtil.getConnection();
+		Connection conn = BdPoolUtil.getConnection();
 		String sql = "update recipe set re_name=?,re_pic=?,detail=?,price=?,shop_id=? where re_id=?";
 		PreparedStatement ps = null;
 		int status = 0;
@@ -146,7 +146,7 @@ public class RecipeDaoImpl implements IRecipeDao {
 
 	@Override
 	public Recipe delete(Recipe recipe) {
-		Connection conn = BDCPUtil.getConnection();
+		Connection conn = BdPoolUtil.getConnection();
 		String sql = "delete from recipe where re_id=?";
 		PreparedStatement ps = null;
 		int status = 0;
