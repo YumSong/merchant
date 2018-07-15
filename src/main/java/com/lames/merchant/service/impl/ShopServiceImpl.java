@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.lames.merchant.dao.IShopDao;
 import com.lames.merchant.dao.impl.ShopDaoImpl;
+import com.lames.merchant.model.MerchantDetail;
 import com.lames.merchant.model.Shop;
 import com.lames.merchant.service.IShopService;
+import com.lames.merchant.util.JMSUtil;
+import com.lames.merchant.util.JsonUtil;
 
 public class ShopServiceImpl implements IShopService {
 	private IShopDao dao = new ShopDaoImpl(); 
@@ -33,6 +36,12 @@ public class ShopServiceImpl implements IShopService {
 	@Override
 	public Shop delete(Shop shop) {
 		return dao.delete(shop);
+	}
+
+	@Override
+	public Shop apply(MerchantDetail detail) {
+		JMSUtil.send(JsonUtil.objectToJson(detail));
+		return null;
 	}
 	
 }

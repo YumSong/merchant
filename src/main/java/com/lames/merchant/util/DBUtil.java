@@ -12,8 +12,7 @@ public class DBUtil {
 	private static BasicDataSource ds;
 	
 	static {
-		String path = DBUtil.class.getResource("/").getPath();
-		Properties properties = FileUtil.loadReasource(path + "/db/jdbc.properties");
+		Properties properties = FileUtil.loadReasource("db/jdbc.properties");
 		ds = new BasicDataSource();
 		ds.setDriverClassName(properties.getProperty("jdbc.divername"));
 		ds.setUrl(properties.getProperty("jdbc.url"));
