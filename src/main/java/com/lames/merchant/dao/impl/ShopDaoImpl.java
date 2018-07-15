@@ -16,7 +16,7 @@ public class ShopDaoImpl implements IShopDao {
 
 	@Override
 	public Shop find(Shop shop) {
-		Connection conn = BdPoolUtil.getConnection();
+		Connection conn = DBUtil.getConnection();
 		String sql = "select shop_id,"
 					+ "shop_name,"
 					+ "service_starttime,"
@@ -100,7 +100,7 @@ public class ShopDaoImpl implements IShopDao {
 
 	@Override
 	public Shop insert(Shop shop) {
-		Connection conn = BdPoolUtil.getConnection();
+		Connection conn = DBUtil.getConnection();
 		String sql = "insert into shop(shop_id,shop_name,service_starttime,service_endtime," + 
 				     "service_range,distribution_cost,shop_pic,business_pic,address) " + 
 				     "values(S_shop.nextVal,?,?,?,?,?,?,?,?)";
@@ -134,7 +134,7 @@ public class ShopDaoImpl implements IShopDao {
 
 	@Override
 	public Shop modify(Shop shop) {
-		Connection conn = BdPoolUtil.getConnection();
+		Connection conn = DBUtil.getConnection();
 		String sql = "update shop set shop_name=?," + 
 				"				service_starttime=?," + 
 				"				service_endtime=?," + 
@@ -174,7 +174,7 @@ public class ShopDaoImpl implements IShopDao {
 
 	@Override
 	public Shop delete(Shop shop) {
-		Connection conn = BdPoolUtil.getConnection();
+		Connection conn = DBUtil.getConnection();
 		String sql = "delete from shop where shop_id =?";
 		PreparedStatement ps = null;
 		int status = 0;
