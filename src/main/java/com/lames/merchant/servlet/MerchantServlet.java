@@ -1,9 +1,6 @@
 package com.lames.merchant.servlet;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -19,7 +16,7 @@ import com.lames.merchant.util.WebConnection;
 /**
  * Servlet implementation class MerchantServlet
  */
-@WebServlet("/merchant")
+@WebServlet("/merchant/*")
 @MultipartConfig
 public class MerchantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -30,7 +27,7 @@ public class MerchantServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Part> parts = (List<Part>) request.getParts();
+		/*List<Part> parts = (List<Part>) request.getParts();
 		WebConnection conn = new WebConnection("http://localhost:4444/picServer/upload");
 		conn.setHeader("content-type", request.getContentType());
 		conn.setHeader("content-length", request.getContentLength() + "");
@@ -39,7 +36,9 @@ public class MerchantServlet extends HttpServlet {
 			conn.addFile(part.getName(), part);
 		}
 		String str = conn.post();
-		System.out.println(str);
+		System.out.println(str);*/
+		
 	}
 
+	
 }
