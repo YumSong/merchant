@@ -1,8 +1,9 @@
 package com.lames.merchant.service;
 
+import com.lames.merchant.model.Merchant;
+
 public interface IMerchantService {
 
-	void login();
-	void register();
-	
+	Merchant login(Merchant merchant);
+	Merchant register(Merchant merchant);
 }

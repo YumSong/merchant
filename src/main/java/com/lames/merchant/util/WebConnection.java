@@ -40,6 +40,14 @@ public class WebConnection {
 		files.put(name,file);
 	}
 	
+	public void setParameter(String key,String value) {
+		parameters.put(key, value);
+	}
+	
+	public String getParameter(String key) {
+		return parameters.get(key);
+	}
+	
 	public String get() throws IOException {
 		URL ur = new URL(url);
 		URLConnection conn = ur.openConnection();
