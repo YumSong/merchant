@@ -1,12 +1,8 @@
 package com.lames.merchant.util;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -18,14 +14,15 @@ import java.util.UUID;
 
 import javax.servlet.http.Part;
 
-
 public class WebConnection {
 	
 	private static final String MUTIPART= "multipart/form-data";
+	private static final String STANDARD_FORM_DATA = "application/x-www-form-urlencoded";
 	
 	private String url;
 	private Map<String, String> headers = new HashMap<>();
 	private Map<String, Part> files = new HashMap<>();
+	private Map<String, String> parameters = new HashMap<>(); 
 	
 	public WebConnection(String url) {
 		if(url.startsWith("http")) {
@@ -63,8 +60,12 @@ public class WebConnection {
 			conn.setRequestProperty(entry.getKey(), entry.getValue());
 		}
 		String contentType = headers.get("content-type");
-		if(contentType != null && contentType.startsWith(MUTIPART) && files.size() > 0) {
-			uploadFile(conn);
+		if(contentType != null) {
+			if(contentType.startsWith(MUTIPART) && files.size() > 0) {
+				uploadFile(conn);
+			}else if(contentType.startsWith(STANDARD_FORM_DATA) && parameters.size() > 0) {
+				outputParams(conn);
+			}
 		}
 		System.out.println(conn.getResponseCode());
 		return inputStreamToString(conn.getInputStream());
@@ -86,28 +87,28 @@ public class WebConnection {
 		conn.setRequestProperty("content-type", "multipart/form-data; boundary=" + boundary);
 		Set<Entry<String,Part>> entries = files.entrySet();
 
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+		BufferedOutputStream bos = new BufferedOutputStream(conn.getOutputStream());
 		for(Entry<String, Part> entry : entries){
 			
 			Part part = entry.getValue();
-			bw.write("--" + boundary);
-			bw.write("\r\n");
-			bw.write("Content-Disposition: form-data; name=\""+entry.getKey()+"\"; filename=\"" + part.getHeader("filename")+ "\"");
-			bw.write("\r\n");
-			bw.write("Content-Type:" + part.getContentType());
-			bw.write("\r\n\r\n");
+			bos.write(("--" + boundary).getBytes());
+			bos.write(("\r\n").getBytes());
+			bos.write(("Content-Disposition: form-data; name=\""+entry.getKey()+"\"; filename=\"" + part.getHeader("filename")+ "\"").getBytes());
+			bos.write(("\r\n").getBytes());
+			bos.write(("Content-Type:" + part.getContentType()).getBytes());
+			bos.write(("\r\n\r\n").getBytes());
 			
 			byte[] buf = new byte[8192];
 			InputStream is = part.getInputStream();
 			int len = 0;
 			while((len = is.read(buf)) != -1) {
-				bw.write(new String(buf,0,len));
+				bos.write(buf,0,len);
 			}
-			bw.write("\r\n");
+			bos.write(("\r\n").getBytes());
 		}
-		bw.write("--" + boundary + "--");
-		bw.write("\r\n");
-		bw.flush();
+		bos.write(("--" + boundary + "--").getBytes());
+		bos.write(("\r\n").getBytes());
+		bos.flush();
 	}
 	
 	private String getBoundary(String str) {
@@ -123,5 +124,16 @@ public class WebConnection {
 		}
 		
 		return "-----------------------------" + UUID.randomUUID();
+	}
+	
+	private void outputParams(HttpURLConnection conn) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		Set<Entry<String,String>> entries = parameters.entrySet();
+		for(Entry<String, String> entry : entries){
+			sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		BufferedOutputStream bos = new BufferedOutputStream(conn.getOutputStream());
+		bos.write(sb.toString().getBytes());
 	}
 }

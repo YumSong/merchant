@@ -30,20 +30,6 @@ public class MerchantServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		/*InputStream is = request.getInputStream();
-		byte[] buf = new byte[1024];
-		int len = 0;
-		StringBuilder sb = new StringBuilder();
-		while((len = is.read(buf)) != -1) {
-			sb.append(new String(buf,0,len));
-		}
-		System.out.println(sb.toString());
-		Enumeration<String> enumeration = request.getHeaderNames();
-		while (enumeration.hasMoreElements()) {
-			String str = (String) enumeration.nextElement();
-			System.out.println(str + ":" + request.getHeader(str));
-		}*/
 		List<Part> parts = (List<Part>) request.getParts();
 		WebConnection conn = new WebConnection("http://localhost:4444/picServer/upload");
 		conn.setHeader("content-type", request.getContentType());
