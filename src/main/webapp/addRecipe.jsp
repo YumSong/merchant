@@ -11,7 +11,7 @@
     <h3 align="center">添加菜品</h3>
     <form name="Recipe" action="recipe/add" method="post" enctype="multipart/form-data">
     <table border="0.5" align="center">
-      <input type="hidden" name="1374">
+      <input type="hidden" name="shop_id" value="1374">
       <tr>
       <td>菜品名:</td>
       <td><input type="text" name="re_name"></td>
