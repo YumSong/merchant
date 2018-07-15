@@ -1,0 +1,120 @@
+package com.lames.merchant.servlet;
+
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import javax.xml.ws.Response;
+
+import com.lames.merchant.config.Config;
+import com.lames.merchant.config.WebServiceConfig;
+import com.lames.merchant.model.JsonResult;
+import com.lames.merchant.model.Merchant;
+import com.lames.merchant.model.MerchantDetail;
+import com.lames.merchant.model.Recipe;
+import com.lames.merchant.model.Shop;
+import com.lames.merchant.service.IShopService;
+import com.lames.merchant.service.impl.ShopServiceImpl;
+import com.lames.merchant.util.BeanUtil;
+import com.lames.merchant.util.JsonUtil;
+import com.lames.merchant.util.WebConnection;
+
+
+@MultipartConfig
+@WebServlet("/shop/*")
+public class ShopServlet extends HttpServlet{
+	
+	private IShopService service = new ShopServiceImpl();
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String url = req.getRequestURI();
+		int start = url.lastIndexOf("/");
+		int end = url.indexOf("?");
+		String action = url;
+		if(start > 0) {
+			if(end > 0) {
+				action = url.substring(start + 1, end);
+			}else {
+				action = url.substring(start + 1);
+			}
+		}
+		if("new".equals(action)) {
+			doNew(req, resp);
+		}else if("apply".equals(action)) {
+			doApply(req, resp);
+		}
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+
+	private void doNew(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		req.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(req, resp);
+	}
+	
+	private void doApply(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException{
+		MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(request.getParameterMap(), MerchantDetail.class);
+		detail.setIdcardNum(Integer.parseInt(request.getParameter("idcardNum")));
+		
+		Merchant merchant = (Merchant) request.getSession().getAttribute("merchant");
+		
+		if(merchant == null || merchant.getLoginName() == null || merchant.getMerchantID() == null) {
+			resp.sendRedirect(request.getContextPath()+ "/index.jsp");
+			return;
+		}
+		//set detail 
+		detail.setMerchantID(merchant.getMerchantID());
+		
+		//upload image
+		String server = WebServiceConfig.getConfig().get("image.upload");
+		String[] shopPics = new String[3];
+		int i = 0;
+		
+		for(Part part : request.getParts()) {
+			if(part.getContentType() == null) {
+				continue;
+			}
+			
+			String name = part.getName();
+			
+			WebConnection conn = new WebConnection(server);
+			
+			conn.setHeader("content-type", WebConnection.MUTIPART);
+			conn.addFile("idcardPic", part);
+			String jsonStr = conn.post();
+			
+			JsonResult result = (JsonResult) JsonUtil.jsonToObject(jsonStr, JsonResult.class);
+			if(result.isStatus()) {
+				String url = (String) result.getData("url");
+				if("idcardPic".equals(name)) {
+					detail.setIdcardPic(url);
+				}else if("shopPic".equals(name)) {
+					shopPics[i++] = url; 
+				}else if("businessPic".equals(name)){
+					detail.setBusinessPic(url);
+				}
+			}
+			detail.setShopPic(shopPics);
+		}
+		
+		Shop shop = service.apply(detail);
+		
+	}
+	
+}
