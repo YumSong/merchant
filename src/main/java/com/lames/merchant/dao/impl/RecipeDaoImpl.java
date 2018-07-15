@@ -11,6 +11,7 @@ import com.lames.merchant.dao.IRecipeDao;
 import com.lames.merchant.model.Recipe;
 import com.lames.merchant.util.DBUtil;
 
+
 public class RecipeDaoImpl implements IRecipeDao {
 
 	@Override
@@ -50,7 +51,6 @@ public class RecipeDaoImpl implements IRecipeDao {
 	@Override
 	public List<Recipe> findAll() {
 		Connection conn = DBUtil.getConnection();
-		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Recipe> recipes = new ArrayList<Recipe>();

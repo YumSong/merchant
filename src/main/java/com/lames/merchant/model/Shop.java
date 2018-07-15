@@ -1,12 +1,13 @@
 package com.lames.merchant.model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Shop {
 	private Integer shop_id;
 	private String shop_name;
-	private Date service_starttime;
-	private Date service_endtime;
+	private Timestamp service_starttime;
+	private Timestamp service_endtime;
 	private Integer service_range;
 	private Double distribution_cost;
 	private String shop_pic;
@@ -15,7 +16,7 @@ public class Shop {
 
 	public Shop() {}
 
-	public Shop(String shop_name, Date service_starttime, Date service_endtime, Integer service_range,
+	public Shop(String shop_name, Timestamp service_starttime, Timestamp service_endtime, Integer service_range,
 			Double distribution_cost, String shop_pic, String business_pic, String address) {
 		this.shop_name = shop_name;
 		this.service_starttime = service_starttime;
@@ -43,19 +44,19 @@ public class Shop {
 		this.shop_name = shop_name;
 	}
 
-	public Date getService_starttime() {
+	public Timestamp getService_starttime() {
 		return service_starttime;
 	}
 
-	public void setService_starttime(Date service_starttime) {
+	public void setService_starttime(Timestamp service_starttime) {
 		this.service_starttime = service_starttime;
 	}
 
-	public Date getService_endtime() {
+	public Timestamp getService_endtime() {
 		return service_endtime;
 	}
 
-	public void setService_endtime(Date service_endtime) {
+	public void setService_endtime(Timestamp service_endtime) {
 		this.service_endtime = service_endtime;
 	}
 
