@@ -16,8 +16,8 @@ import javax.servlet.http.Part;
 
 public class WebConnection {
 	
-	private static final String MUTIPART= "multipart/form-data";
-	private static final String STANDARD_FORM_DATA = "application/x-www-form-urlencoded";
+	public static final String MUTIPART= "multipart/form-data";
+	public static final String STANDARD_FORM_DATA = "application/x-www-form-urlencoded";
 	
 	private String url;
 	private Map<String, String> headers = new HashMap<>();
@@ -75,7 +75,6 @@ public class WebConnection {
 				outputParams(conn);
 			}
 		}
-		System.out.println(conn.getResponseCode());
 		return inputStreamToString(conn.getInputStream());
 	}
 	
@@ -143,5 +142,6 @@ public class WebConnection {
 		sb.deleteCharAt(sb.length() - 1);
 		BufferedOutputStream bos = new BufferedOutputStream(conn.getOutputStream());
 		bos.write(sb.toString().getBytes());
+		bos.flush();
 	}
 }

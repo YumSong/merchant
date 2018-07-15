@@ -1,9 +1,11 @@
 package com.lames.merchant.service;
 
+import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
 
 public interface IMerchantService {
 
-	Merchant login(Merchant merchant);
-	Merchant register(Merchant merchant);
+	JsonResult login(Merchant merchant);
+	JsonResult register(Merchant merchant);
+	JsonResult detail(Merchant merchant);
 }

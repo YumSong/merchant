@@ -2,6 +2,7 @@ package com.lames.merchant.config;
 
 import java.util.Properties;
 
+
 import com.lames.merchant.util.FileUtil;
 
 public class WebServiceConfig implements Config{

@@ -35,4 +35,10 @@ public class JsonResult {
 	public Object getData(String key) {
 		return data.get(key);
 	}
+	@Override
+	public String toString() {
+		return "JsonResult [status=" + status + ", message=" + message + ", data=" + data + "]";
+	}
+	
+	
 }
