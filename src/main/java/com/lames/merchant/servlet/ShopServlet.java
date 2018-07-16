@@ -1,9 +1,8 @@
 package com.lames.merchant.servlet;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -12,20 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.xml.ws.Response;
 
-import com.lames.merchant.config.Config;
 import com.lames.merchant.config.WebServiceConfig;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
 import com.lames.merchant.model.MerchantDetail;
-import com.lames.merchant.model.Recipe;
 import com.lames.merchant.model.Shop;
 import com.lames.merchant.service.IShopService;
 import com.lames.merchant.service.impl.ShopServiceImpl;
 import com.lames.merchant.util.BeanUtil;
 import com.lames.merchant.util.JsonUtil;
 import com.lames.merchant.util.WebConnection;
+
+import oracle.net.aso.a;
 
 
 @MultipartConfig
@@ -56,6 +54,8 @@ public class ShopServlet extends HttpServlet{
 			doNew(req, resp);
 		}else if("apply".equals(action)) {
 			doApply(req, resp);
+		}else if("update".equals(action)) {
+			doUpdate(req, resp);
 		}
 	}
 
@@ -71,7 +71,6 @@ public class ShopServlet extends HttpServlet{
 	private void doApply(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException{
 		MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(request.getParameterMap(), MerchantDetail.class);
 		detail.setIdcardNum(Integer.parseInt(request.getParameter("idcardNum")));
-		
 		Merchant merchant = (Merchant) request.getSession().getAttribute("merchant");
 		
 		if(merchant == null || merchant.getLoginName() == null || merchant.getMerchantID() == null) {
@@ -80,11 +79,9 @@ public class ShopServlet extends HttpServlet{
 		}
 		//set detail 
 		detail.setMerchantID(merchant.getMerchantID());
-		
 		//upload image
 		String server = WebServiceConfig.getConfig().get("image.upload");
-		String[] shopPics = new String[3];
-		int i = 0;
+		List<String> shopPics = new ArrayList<>();
 		
 		for(Part part : request.getParts()) {
 			if(part.getContentType() == null) {
@@ -105,7 +102,7 @@ public class ShopServlet extends HttpServlet{
 				if("idcardPic".equals(name)) {
 					detail.setIdcardPic(url);
 				}else if("shopPic".equals(name)) {
-					shopPics[i++] = url; 
+					shopPics.add(url);
 				}else if("businessPic".equals(name)){
 					detail.setBusinessPic(url);
 				}
@@ -113,8 +110,29 @@ public class ShopServlet extends HttpServlet{
 			detail.setShopPic(shopPics);
 		}
 		
+		//check update or insert
+		MerchantDetail merchantDetail = (MerchantDetail) request.getSession().getAttribute("merchantDetail");
+		if(merchantDetail != null) {
+			detail.setShopID(merchantDetail.getShopID());
+			detail.setMerchantDetailID(merchantDetail.getMerchantDetailID());
+		}
+		System.out.println(detail);
 		Shop shop = service.apply(detail);
 		
+		if(shop != null) {
+			//request.getRequestDispatcher("/merchant/detail").forward(request, resp);
+			resp.sendRedirect(request.getContextPath() + "/merchant/detail");
+		}else {
+			resp.sendRedirect(request.getContextPath() + "/merchant/new");
+		}
 	}
 	
+	private void doUpdate(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+		MerchantDetail merchantDetail = (MerchantDetail) request.getSession().getAttribute("merchantDetail");
+		if(merchantDetail == null) {
+			resp.sendRedirect(request.getContextPath() + "/merchant/detail");
+		}else {
+			request.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(request, resp);
+		}
+	}
 }

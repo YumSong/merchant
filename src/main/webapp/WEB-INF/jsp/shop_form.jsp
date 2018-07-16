@@ -18,10 +18,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="form-wrap">
 			<form action="<%=basePath%>shop/apply" method="post" enctype="multipart/form-data">
 				<div>
-					<input type="text" name="idcardNum" placeholder="身份证id">
+					<input type="text" name="idcardNum" placeholder="身份证id" value="${merchantDetail.idcardNum}">
 				</div>
 				<div>
-					<input type="text" name="merchantName" placeholder="名字">
+					<input type="text" name="merchantName" placeholder="名字" value="${merchantDetail.merchantName}">
 				</div>
 				<div>
 					<input type="file" name="idcardPic" placeholder="身份证图片">
@@ -36,10 +36,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				
 				<div>
-					<input type="text" name="address" placeholder="店铺地址">
+					<input type="text" name="address" placeholder="店铺地址"  value="${merchantDetail.address}">
 				</div>
 				<div>
-					<input type="text" name="introduction" placeholder="店铺简介">
+					<input type="text" name="introduction" placeholder="店铺简介"  value="${merchantDetail.introduction}">
 				</div>
 				<div>
 					<button>申请</button>

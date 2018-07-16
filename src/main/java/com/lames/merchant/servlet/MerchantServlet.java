@@ -1,6 +1,8 @@
 package com.lames.merchant.servlet;
 
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -94,13 +96,11 @@ public class MerchantServlet extends HttpServlet {
 		if(result.isStatus()) {
 			Map map = (Map)result.getData("merchantDetail");
 			MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(map, MerchantDetail.class);
-			
-			String shopPicStr = (String) map.get("shopPic");
-			detail.setShopPic(shopPicStr.split(";;"));
-			
+			List<String> pics = (List<String>) map.get("shopPic");
+			request.getSession().setAttribute("merchantDetail", detail);
 			request.setAttribute("detail", detail);
-			//request.setAttribute("shop", shop);
 		}
+		//response.sendRedirect(request.getContextPath() + "jsp/merchant.jsp");
 		request.getRequestDispatcher("/WEB-INF/jsp/merchant.jsp").forward(request, response);
 		service.detail(merchant);
 	}

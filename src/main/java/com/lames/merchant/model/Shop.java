@@ -13,6 +13,7 @@ public class Shop {
 	private String shop_pic;
 	private String business_pic;
 	private String address;
+	private Integer merchant_id;
 
 	public Shop() {}
 
@@ -38,6 +39,16 @@ public class Shop {
 
 	public String getShop_name() {
 		return shop_name;
+	}
+	
+	
+
+	public Integer getMerchant_id() {
+		return merchant_id;
+	}
+
+	public void setMerchant_id(Integer merchant_id) {
+		this.merchant_id = merchant_id;
 	}
 
 	public void setShop_name(String shop_name) {

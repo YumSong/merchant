@@ -40,8 +40,30 @@ public class ShopServiceImpl implements IShopService {
 
 	@Override
 	public Shop apply(MerchantDetail detail) {
+		Shop shop = new Shop();
+		
+		if(detail.getShopID() != null) {
+			shop.setShop_id(detail.getShopID());
+			shop = find(shop);
+			if(detail.getBusinessPic() != null) {
+				shop.setBusiness_pic(detail.getBusinessPic());
+				shop.setAddress(detail.getAddress());
+			}
+			modify(shop);
+		}else {
+			shop.setAddress(detail.getAddress());
+			shop.setBusiness_pic(detail.getBusinessPic());
+			shop.setMerchant_id(detail.getMerchantID());
+			dao.insertSimple(shop);
+			Shop shop2 = dao.findByMerchantId(detail.getMerchantID());
+			shop.setShop_id(shop2.getShop_id());
+		}
+		
+		detail.setShopID(shop.getShop_id());
+		
 		JMSUtil.send(JsonUtil.objectToJson(detail));
-		return null;
+		
+		return shop;
 	}
 	
 }

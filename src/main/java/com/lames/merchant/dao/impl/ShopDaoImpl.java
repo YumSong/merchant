@@ -58,6 +58,51 @@ public class ShopDaoImpl implements IShopDao {
 		}
 		return shop1;
 	}
+	
+	@Override
+	public Shop findByMerchantId(Integer merchantID) {
+		Connection conn = DBUtil.getConnection();
+		String sql = "select shop_id,"
+					+ "shop_name,"
+					+ "service_starttime,"
+					+ "service_endtime," 
+					+ "service_range,"
+					+ "distribution_cost,"
+					+ "shop_pic,"
+					+ "business_pic,"
+					+ "address from shop where merchant_id=?";
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Shop shop1 = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, merchantID);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				shop1 = new Shop();
+				shop1.setShop_id(rs.getInt(1));
+				shop1.setShop_name(rs.getString(2));
+				shop1.setService_starttime(rs.getTimestamp(3));
+				shop1.setService_endtime(rs.getTimestamp(4));
+				shop1.setService_range(rs.getInt(5));
+				shop1.setDistribution_cost(rs.getDouble(6));
+				shop1.setShop_pic(rs.getString(7));
+				shop1.setBusiness_pic(rs.getString(8));
+				shop1.setAddress(rs.getString(9));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				ps.close();
+				conn.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return shop1;
+	}
 
 	@Override
 	public List<Shop> findAll() {
@@ -116,6 +161,34 @@ public class ShopDaoImpl implements IShopDao {
 			ps.setString(6, shop.getShop_pic());
 			ps.setString(7, shop.getBusiness_pic());
 			ps.setString(8, shop.getAddress());
+			status = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				ps.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		if(status == 0) 	
+			return null;
+		return shop;
+	}
+	
+	@Override
+	public Shop insertSimple(Shop shop) {
+		Connection conn = DBUtil.getConnection();
+		String sql = "insert into shop(shop_id,merchant_id,business_pic,address) " + 
+				     "values(S_shop.nextVal,?,?,?)";
+		PreparedStatement ps = null;
+		int status = 0;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, shop.getMerchant_id());
+			ps.setString(2, shop.getBusiness_pic());
+			ps.setString(3, shop.getAddress());
 			status = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

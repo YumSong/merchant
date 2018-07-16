@@ -1,6 +1,8 @@
 package com.lames.merchant.model;
 
 import java.util.Arrays;
+import java.util.List;
+
 
 public class MerchantDetail {
 
@@ -11,7 +13,7 @@ public class MerchantDetail {
 	private String merchantName;
 	private Integer shopID;
 	private Integer status;// 狀態：0-待處理、 1-審核通過（拉白）、 2-駁回 3、不同意（拉黑）
-	private String[] shopPic;
+	private List<String> shopPic;
 	private String businessPic;
 	private String address;
 	private String introduction;
@@ -79,13 +81,7 @@ public class MerchantDetail {
 	}
 
 
-	public String[] getShopPic() {
-		return shopPic;
-	}
 
-	public void setShopPic(String[] shopPic) {
-		this.shopPic = shopPic;
-	}
 
 	public String getBusinessPic() {
 		return businessPic;
@@ -112,13 +108,22 @@ public class MerchantDetail {
 		this.introduction = introduction;
 	}
 
+	public List<String> getShopPic() {
+		return shopPic;
+	}
+
+	public void setShopPic(List<String> shopPic) {
+		this.shopPic = shopPic;
+	}
+
 	@Override
 	public String toString() {
 		return "MerchantDetail [merchantDetailID=" + merchantDetailID + ", merchantID=" + merchantID + ", idcardNum="
 				+ idcardNum + ", idcardPic=" + idcardPic + ", merchantName=" + merchantName + ", shopID=" + shopID
-				+ ", status=" + status + ", shopPic=" + Arrays.toString(shopPic) + ", businessPic=" + businessPic
-				+ ", address=" + address + ", introduction=" + introduction + "]";
+				+ ", status=" + status + ", shopPic=" + shopPic + ", businessPic=" + businessPic + ", address="
+				+ address + ", introduction=" + introduction + "]";
 	}
 
+	
 
 }
