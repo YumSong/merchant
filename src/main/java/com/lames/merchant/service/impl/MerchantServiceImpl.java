@@ -61,6 +61,7 @@ public class MerchantServiceImpl implements IMerchantService {
 		JsonResult result = null;
 		try {
 			String str = conn.post();
+			System.out.println(str);
 			result = (JsonResult) JsonUtil.jsonToObject(str, JsonResult.class);
 		} catch (IOException e) {
 			result = new JsonResult();
