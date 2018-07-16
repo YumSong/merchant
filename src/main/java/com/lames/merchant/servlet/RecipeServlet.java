@@ -1,6 +1,7 @@
 package com.lames.merchant.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -40,13 +41,12 @@ public class RecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if("/recipe/del".equals(request.getRequestURI())) {
+		System.out.println(request.getRequestURI());
+		if("/merchant/recipe/del".equals(request.getRequestURI())) {
 			doDelete(request, response);
-		}else if("/recipe/mod".equals(request.getRequestURI())){
+		}else if("/merchant/recipe/mod".equals(request.getRequestURI())){
 			doPut(request, response);
-		}else if("/recipe/get".equals(request.getRequestURI())){
-			doGet(request, response);
-		}else {
+		}else if("/merchant/recipe/add".equals(request.getRequestURI())){
 			// get parameters
 			String shop_id = request.getParameter("shop_id");
 			String re_name = request.getParameter("re_name");
@@ -61,7 +61,9 @@ public class RecipeServlet extends HttpServlet {
 			conn.addFile("re_pic", pic_part);
 			// post picture to resoucrce server.
 			String re_pic = conn.post();
+			
 			JsonResult pic_result = (JsonResult) JsonUtil.jsonToObject(re_pic, JsonResult.class);
+			System.out.println("Hello");
 			if(pic_result.isStatus()) {
 				re_pic = (String) pic_result.getData().get("url");
 			}else {
@@ -73,6 +75,10 @@ public class RecipeServlet extends HttpServlet {
 			
 			// servcie: insert db
 			service.insert(recipe);
+			
+//			request.getRequestDispatcher("/recipe/get").forward(request, response);
+			request.getRequestDispatcher("recipe.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/recipe/get");
 		}
 	}
 	
@@ -81,7 +87,10 @@ public class RecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+			List<Recipe> recipeList = service.findAll();
+			request.setAttribute("recipeList", recipeList);
+			request.getRequestDispatcher("/recipe.jsp").forward(request, response);
+//		response.sendRedirect(request.getContextPath() + "/"  + "addRecipe.jsp");
 	}
 
 	@Override
