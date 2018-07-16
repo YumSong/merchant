@@ -12,7 +12,7 @@
 <body>
   <body>
     <h3 align="center">添加菜品</h3>
-    <form name="Recipe" action="recipe/add" method="post" enctype="multipart/form-data">
+    <form name="addRecipe" action="addRecipe.do" method="post" enctype="multipart/form-data">
     <table border="0.5" align="center">
       <input type="hidden" name="shop_id" value="1374">
       <tr>
@@ -37,42 +37,5 @@
       </tr>
     </table>
     </form>
-    </br>
-	<table align="center" border="1">
-		<c:if test="${not empty recipeList}">
-		<tr>
-			<td>菜品ID</td>
-			<td>菜品名</td>
-			<td>菜图片</td>
-			<td>菜详情</td>
-			<td>菜价格</td>
-		</tr>
-		
-			<c:forEach items="${recipeList}" var="recipe">
-				<tr>
-					<td>${recipe.re_id}</td>
-					<td>${recipe.re_name}</td>
-					<td><img alt="图片凉凉~" src="<%=picRoot%>${recipe.re_pic}"></td>
-					<td>${recipe.detail}</td>
-					<td>${recipe.price}</td>
-					<td>
-						<form action="delete.do" method="post">
-							<input type="hidden" name="re_id" value="${recipe.re_id}"/> 
-							<input type="hidden" name="re_name" value="${recipe.re_name}"/> 
-							<input type="hidden" name="re_pic" value="${recipe.re_pic}"/> 
-							<input type="hidden" name="detail" value="${recipe.detail}"/> 
-							<input type="hidden" name="price" value="${recipe.price}"/> 
-							<input type="submit" value="delete" />
-						</form>
-					</td>
-				</tr>
-			</c:forEach>
-		</c:if>
-		<c:if test="${empty recipeList}">
-			<tr>
-				<td>您还没有菜单，请添加~</td>
-			</tr>
-		</c:if>			
-	</table>    
 </body>
 </html>

@@ -25,28 +25,29 @@ import com.lames.merchant.util.WebConnection;
  */
 @WebServlet("/recipe/*")
 @MultipartConfig
-public class RecipeServlet extends HttpServlet {
+public class AddRecipeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private IRecipeService service = new RecipeServiceImpl();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecipeServlet() {
+    public AddRecipeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getRequestURI());
-		if("/merchant/recipe/del".equals(request.getRequestURI())) {
-			doDelete(request, response);
-		}else if("/merchant/recipe/mod".equals(request.getRequestURI())){
-			doPut(request, response);
-		}else if("/merchant/recipe/add".equals(request.getRequestURI())){
 			// get parameters
 			String shop_id = request.getParameter("shop_id");
 			String re_name = request.getParameter("re_name");
@@ -77,31 +78,8 @@ public class RecipeServlet extends HttpServlet {
 			service.insert(recipe);
 			
 //			request.getRequestDispatcher("/recipe/get").forward(request, response);
-			request.getRequestDispatcher("recipe.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/recipe/get");
-		}
+			request.getRequestDispatcher("getRecipe.do").forward(request, response);
+//			response.sendRedirect(request.getContextPath() + "/recipe/get");
 	}
 	
-	
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			List<Recipe> recipeList = service.findAll();
-			request.setAttribute("recipeList", recipeList);
-			request.getRequestDispatcher("/recipe.jsp").forward(request, response);
-//		response.sendRedirect(request.getContextPath() + "/"  + "addRecipe.jsp");
-	}
-
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPut(req, resp);
-	}
-
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doDelete(req, resp);
-	}
 }

@@ -49,14 +49,15 @@ public class RecipeDaoImpl implements IRecipeDao {
 	}
 	
 	@Override
-	public List<Recipe> findAll() {
+	public List<Recipe> findAll(Integer shop_id) {
 		Connection conn = DBUtil.getConnection();
-		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe";
+		String sql = "select re_id,re_name,re_pic,detail,price,shop_id from recipe where shop_id = ?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Recipe> recipes = new ArrayList<Recipe>();
 		try {
 			ps = conn.prepareStatement(sql);
+			ps.setInt(1, shop_id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				Recipe recipe = new Recipe();
@@ -118,7 +119,7 @@ public class RecipeDaoImpl implements IRecipeDao {
 	@Override
 	public Recipe modify(Recipe recipe) {
 		Connection conn = DBUtil.getConnection();
-		String sql = "update recipe set re_name=?,re_pic=?,detail=?,price=?,shop_id=? where re_id=?";
+		String sql = "update recipe set re_name=?,re_pic=?,detail=?,price=? where re_id=?";
 		PreparedStatement ps = null;
 		int status = 0;
 		try {
@@ -127,8 +128,7 @@ public class RecipeDaoImpl implements IRecipeDao {
 			ps.setString(2, recipe.getRe_pic());
 			ps.setString(3, recipe.getDetail());
 			ps.setDouble(4, recipe.getPrice());
-			ps.setInt(5, recipe.getShop_id());
-			ps.setInt(6,recipe.getRe_id());
+			ps.setInt(5,recipe.getRe_id());
 			status = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
