@@ -24,7 +24,7 @@ public class IRecipeServiceTest {
 
 	@Test
 	public void testFindAll() {
-		Assert.assertEquals(service.findAll().isEmpty(), false);
+		Assert.assertEquals(service.findAll(1374).isEmpty(), false);
 	}
 
 	@Test

@@ -11,13 +11,13 @@
 </head>
 <body>
   <body>
-    <h3 align="center">添加菜品</h3>
-    <form name="addRecipe" action="addRecipe.do" method="post" enctype="multipart/form-data">
+    <h3 align="center">修改菜品</h3>
+    <form name="sbumitModifyRecipe" action="submitModifyRecipe.do" method="post" enctype="multipart/form-data">
     <table border="0.5" align="center">
-      <input type="hidden" name="shop_id" value="1374">
+      <input type="hidden" name="re_id" value="${recipe.re_id}" >
       <tr>
       <td>菜品名:</td>
-      <td><input type="text" name="re_name"></td>
+      <td><input type="text" name="re_name" value="${recipe.re_name }"></td>
       </tr>
       <tr>
       <td>菜图片:</td>
@@ -25,15 +25,15 @@
       </tr>
       <tr>
       <td>菜详情:</td>
-      <td><input type="text" name="detail"></td>
+      <td><input type="text" name="detail" value="${recipe.detail}"></td>
       </tr>
       <tr>
       <td>菜价格:</td>
-      <td><input type="text" name="price"></td>
+      <td><input type="text" name="price" value="${recipe.price}" ></td>
       </tr>
       <tr>
       <td><input type="reset" value="重置"></td>
-      <td><input type="submit" value="提交"></td>
+      <td><input type="submit" value="修改"></td>
       </tr>
     </table>
     </form>

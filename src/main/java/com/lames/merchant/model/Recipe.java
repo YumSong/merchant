@@ -11,12 +11,19 @@ public class Recipe {
 	public Recipe() {}
 	
 	public Recipe(String re_name, String re_pic, String detail, Double price, Integer shop_id) {
-		super();
 		this.re_name = re_name;
 		this.re_pic = re_pic;
 		this.detail = detail;
 		this.price = price;
 		this.shop_id = shop_id;
+	}
+
+	public Recipe(String re_name, String re_pic, String detail, Double price) {
+		super();
+		this.re_name = re_name;
+		this.re_pic = re_pic;
+		this.detail = detail;
+		this.price = price;
 	}
 
 	public Integer getRe_id() {

@@ -7,7 +7,7 @@ import com.lames.merchant.model.Recipe;
 public interface IRecipeDao {
 	public Recipe find(Recipe recipe);
 	
-	public List<Recipe> findAll();
+	public List<Recipe> findAll(Integer shop_id);
 	
 	public Recipe insert(Recipe recipe);
 	

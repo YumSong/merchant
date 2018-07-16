@@ -27,7 +27,7 @@ public class IRecipeDaoTest {
 
 	@Test
 	public void testFindAll() {
-		Assert.assertEquals(dao.findAll().isEmpty(), false);
+		Assert.assertEquals(dao.findAll(1374).isEmpty(), false);
 	}
 
 	@Test

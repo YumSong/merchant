@@ -16,8 +16,8 @@ public class RecipeServiceImpl implements IRecipeService {
 	}
 
 	@Override
-	public List<Recipe> findAll() {
-		return dao.findAll();
+	public List<Recipe> findAll(Integer shop_id) {
+		return dao.findAll(shop_id);
 	}
 
 	@Override
