@@ -16,7 +16,6 @@ public class Shop {
 
 	public Shop() {}
 
-
 	public Shop(String shop_name, Timestamp service_starttime, Timestamp service_endtime, Integer service_range,
 			Double distribution_cost, String shop_pic, String business_pic, String address, Integer merchant_id) {
 		this.shop_name = shop_name;

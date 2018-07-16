@@ -39,7 +39,7 @@ public class ShopServiceImpl implements IShopService {
 	}
 
 	@Override
-	public Shop apply(MerchantDetail detail) {
+	public Shop apply(MerchantDetail detail,Shop reqShop) {
 		Shop shop = new Shop();
 		
 		if(detail.getShopID() != null) {
@@ -51,11 +51,8 @@ public class ShopServiceImpl implements IShopService {
 			}
 			modify(shop);
 		}else {
-			shop.setAddress(detail.getAddress());
-			shop.setBusiness_pic(detail.getBusinessPic());
-			shop.setMerchant_id(detail.getMerchantID());
-			System.out.println(detail.getMerchantID());
-			dao.insertSimple(shop);
+			reqShop.setMerchant_id(detail.getMerchantID());
+			dao.insert(reqShop);
 			Shop shop2 = dao.findByMerchantId(detail.getMerchantID());
 			shop.setShop_id(shop2.getShop_id());
 		}

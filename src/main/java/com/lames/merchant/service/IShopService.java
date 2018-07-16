@@ -16,5 +16,6 @@ public interface IShopService {
 	
 	public Shop delete(Shop shop);
 	
-	public Shop apply(MerchantDetail detail);
+
+	Shop apply(MerchantDetail detail, Shop reqShop);
 }

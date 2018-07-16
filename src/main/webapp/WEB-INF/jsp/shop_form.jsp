@@ -18,6 +18,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="form-wrap">
 			<form action="<%=basePath%>shop/apply" method="post" enctype="multipart/form-data">
 				<div>
+					<input type="text" name="shop_name" placeholder="店铺名字" value="${shop.shop_name}">
+				</div>
+				<div>
+					<input type="text" name="service_starttime" placeholder="服务开始时间" value="${shop.service_starttime}">
+				</div>
+				<div>
+					<input type="text" name="service_endtime" placeholder="服务结束时间" value="${shop.service_endtime}">
+				</div>
+				<div>
+					<input type="text" name="service_range" placeholder="服务范围" value="${shop.service_range}">
+				</div>
+				<div>
+					<input type="text" name="distribution_cost" placeholder="服务费用" value="${shop.distribution_cost}">
+				</div>
+				<div>
 					<input type="text" name="idcardNum" placeholder="身份证id" value="${merchantDetail.idcardNum}">
 				</div>
 				<div>

@@ -1,6 +1,7 @@
 package com.lames.merchant.servlet;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +59,8 @@ public class ShopServlet extends HttpServlet{
 			doUpdate(req, resp);
 		}
 	}
+	
+	
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,6 +73,15 @@ public class ShopServlet extends HttpServlet{
 	
 	private void doApply(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException{
 		MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(request.getParameterMap(), MerchantDetail.class);
+		Shop reqShop = (Shop) BeanUtil.mapToBean(request.getParameterMap(), Shop.class);
+		
+		//set reqShop
+		reqShop.setService_starttime(new Timestamp(Long.parseLong(request.getParameter("service_starttime"))));
+		reqShop.setService_endtime(new Timestamp(Long.parseLong(request.getParameter("service_endtime"))));
+		reqShop.setService_range(Integer.parseInt(request.getParameter("service_range")));
+		reqShop.setDistribution_cost(Double.parseDouble(request.getParameter("distribution_cost")));
+		
+		System.out.println(reqShop);
 		detail.setIdcardNum(Integer.parseInt(request.getParameter("idcardNum")));
 		Merchant merchant = (Merchant) request.getSession().getAttribute("merchant");
 		
@@ -110,14 +122,17 @@ public class ShopServlet extends HttpServlet{
 			detail.setShopPic(shopPics);
 		}
 		
+		reqShop.setBusiness_pic(detail.getBusinessPic());
+		reqShop.setShop_pic(shopPics.size() > 0 ? shopPics.get(0) : null);
+		
 		//check update or insert
 		MerchantDetail merchantDetail = (MerchantDetail) request.getSession().getAttribute("merchantDetail");
 		if(merchantDetail != null) {
 			detail.setShopID(merchantDetail.getShopID());
 			detail.setMerchantDetailID(merchantDetail.getMerchantDetailID());
 		}
-		System.out.println(detail);
-		Shop shop = service.apply(detail);
+		System.out.println(reqShop);
+		Shop shop = service.apply(detail,reqShop);
 		
 		if(shop != null) {
 			//request.getRequestDispatcher("/merchant/detail").forward(request, resp);
