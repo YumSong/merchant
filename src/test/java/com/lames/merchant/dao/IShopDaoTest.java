@@ -23,7 +23,7 @@ public class IShopDaoTest {
 	
 	@Test
 	public void testFind() {
-		shop.setShop_id(1);
+		shop.setMerchant_id(12364);
 		Assert.assertNotNull(dao.find(shop));
 		System.out.println(dao.find(shop));
 	}
@@ -45,6 +45,7 @@ public class IShopDaoTest {
 		shop.setService_range(10);
 		shop.setAddress("珠海市唐家东岸村云姐面馆");
 		shop.setDistribution_cost(12.0);
+		shop.setMerchant_id(12364);
 		System.out.println(dao.insert(shop));
 	}
 
@@ -59,6 +60,7 @@ public class IShopDaoTest {
 		shop.setService_range(10);
 		shop.setAddress("广东省珠海市唐家东岸村云姐面馆");
 		shop.setDistribution_cost(12.0);
+		shop.setMerchant_id(12364);
 		System.out.println(dao.modify(shop));
 	}
 

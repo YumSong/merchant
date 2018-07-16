@@ -25,13 +25,13 @@ public class ShopDaoImpl implements IShopDao {
 					+ "distribution_cost,"
 					+ "shop_pic,"
 					+ "business_pic,"
-					+ "address from shop where shop_id=?";
+					+ "address from shop where merchant_id=?";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Shop shop1 = null;
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, shop.getShop_id());
+			ps.setInt(1, shop.getMerchant_id());
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				shop1 = new Shop();
@@ -63,7 +63,7 @@ public class ShopDaoImpl implements IShopDao {
 	public List<Shop> findAll() {
 		Connection conn = DBUtil.getConnection();
 		String sql = "select shop_id,shop_name,service_starttime,service_endtime," + 
-				     "service_range,distribution_cost,shop_pic,business_pic,address from shop";
+				     "service_range,distribution_cost,shop_pic,business_pic,address,merchant_id from shop";
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<Shop> shops = new ArrayList<Shop>();
@@ -81,6 +81,7 @@ public class ShopDaoImpl implements IShopDao {
 				shop.setShop_pic(rs.getString(7));
 				shop.setBusiness_pic(rs.getString(8));
 				shop.setAddress(rs.getString(9));
+				shop.setMerchant_id(rs.getInt(10));
 				shops.add(shop);
 			}
 			return shops;
@@ -102,8 +103,8 @@ public class ShopDaoImpl implements IShopDao {
 	public Shop insert(Shop shop) {
 		Connection conn = DBUtil.getConnection();
 		String sql = "insert into shop(shop_id,shop_name,service_starttime,service_endtime," + 
-				     "service_range,distribution_cost,shop_pic,business_pic,address) " + 
-				     "values(S_shop.nextVal,?,?,?,?,?,?,?,?)";
+				     "service_range,distribution_cost,shop_pic,business_pic,address, merchant_id) " + 
+				     "values(S_shop.nextVal,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement ps = null;
 		int status = 0;
 		try {
@@ -116,6 +117,7 @@ public class ShopDaoImpl implements IShopDao {
 			ps.setString(6, shop.getShop_pic());
 			ps.setString(7, shop.getBusiness_pic());
 			ps.setString(8, shop.getAddress());
+			ps.setInt(9, shop.getMerchant_id());
 			status = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -142,7 +144,7 @@ public class ShopDaoImpl implements IShopDao {
 				"				distribution_cost=?," + 
 				"				shop_pic=?," + 
 				"				business_pic=?," + 
-				"				address=? where shop_id=?";
+				"				address=? where merchant_id=?";
 		PreparedStatement ps = null;
 		int status = 0;
 		try {
@@ -155,7 +157,7 @@ public class ShopDaoImpl implements IShopDao {
 			ps.setString(6, shop.getShop_pic());
 			ps.setString(7, shop.getBusiness_pic());
 			ps.setString(8, shop.getAddress());
-			ps.setInt(9, shop.getShop_id());
+			ps.setInt(9, shop.getMerchant_id());
 			status = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -175,12 +177,12 @@ public class ShopDaoImpl implements IShopDao {
 	@Override
 	public Shop delete(Shop shop) {
 		Connection conn = DBUtil.getConnection();
-		String sql = "delete from shop where shop_id =?";
+		String sql = "delete from shop where merchant_id =?";
 		PreparedStatement ps = null;
 		int status = 0;
 		try {
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, shop.getShop_id());
+			ps.setInt(1, shop.getMerchant_id());
 			status = ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

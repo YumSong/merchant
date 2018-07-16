@@ -1,6 +1,5 @@
 package com.lames.merchant.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Shop {
@@ -13,11 +12,13 @@ public class Shop {
 	private String shop_pic;
 	private String business_pic;
 	private String address;
+	private Integer merchant_id;
 
 	public Shop() {}
 
+
 	public Shop(String shop_name, Timestamp service_starttime, Timestamp service_endtime, Integer service_range,
-			Double distribution_cost, String shop_pic, String business_pic, String address) {
+			Double distribution_cost, String shop_pic, String business_pic, String address, Integer merchant_id) {
 		this.shop_name = shop_name;
 		this.service_starttime = service_starttime;
 		this.service_endtime = service_endtime;
@@ -26,6 +27,16 @@ public class Shop {
 		this.shop_pic = shop_pic;
 		this.business_pic = business_pic;
 		this.address = address;
+		this.merchant_id = merchant_id;
+	}
+
+
+	public Integer getMerchant_id() {
+		return merchant_id;
+	}
+
+	public void setMerchant_id(Integer merchant_id) {
+		this.merchant_id = merchant_id;
 	}
 
 	public Integer getShop_id() {
