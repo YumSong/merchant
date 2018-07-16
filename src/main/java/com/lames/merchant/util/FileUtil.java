@@ -12,7 +12,6 @@ public class FileUtil {
 	public static Properties loadReasource(String path) {
 		InputStream is = WebServiceConfig.class.getClassLoader().getResourceAsStream(path);
 		
-		
 		Properties properties = new Properties();
 		try {
 			properties.load(is);

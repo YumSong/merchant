@@ -119,7 +119,6 @@ public class WebConnection {
 	}
 	
 	private String getBoundary(String str) {
-		System.out.println(str);
 		int index = str.indexOf(";");
 		if(index > 0) {
 			String bounudaryKV = str.substring(index + 1).trim();

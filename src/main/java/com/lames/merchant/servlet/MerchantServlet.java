@@ -1,6 +1,8 @@
 package com.lames.merchant.servlet;
 
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,8 @@ import com.lames.merchant.config.Config;
 import com.lames.merchant.config.WebServiceConfig;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
+import com.lames.merchant.model.MerchantDetail;
+import com.lames.merchant.model.Shop;
 import com.lames.merchant.service.IMerchantService;
 import com.lames.merchant.service.impl.MerchantServiceImpl;
 import com.lames.merchant.util.BeanUtil;
@@ -25,7 +29,6 @@ import com.lames.merchant.util.WebConnection;
  * Servlet implementation class MerchantServlet
  */
 @WebServlet("/merchant/*")
-@MultipartConfig
 public class MerchantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -84,12 +87,20 @@ public class MerchantServlet extends HttpServlet {
 	
 	public void doDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Merchant merchant = (Merchant) request.getSession().getAttribute("merchant");
+		if(merchant == null || merchant.getMerchantID() == null) {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			return;
+		}
 		JsonResult result = service.detail(merchant);
 		System.out.println(result);
 		if(result.isStatus()) {
-			
-			//request.setAttribute("shop", shop);
+			Map map = (Map)result.getData("merchantDetail");
+			MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(map, MerchantDetail.class);
+			List<String> pics = (List<String>) map.get("shopPic");
+			request.getSession().setAttribute("merchantDetail", detail);
+			request.setAttribute("detail", detail);
 		}
+		//response.sendRedirect(request.getContextPath() + "jsp/merchant.jsp");
 		request.getRequestDispatcher("/WEB-INF/jsp/merchant.jsp").forward(request, response);
 		service.detail(merchant);
 	}

@@ -14,4 +14,8 @@ public interface IShopDao {
 	public Shop modify(Shop shop);
 	
 	public Shop delete(Shop shop);
+
+	Shop findByMerchantId(Integer merchantID);
+
+	Shop insertSimple(Shop shop);
 }
