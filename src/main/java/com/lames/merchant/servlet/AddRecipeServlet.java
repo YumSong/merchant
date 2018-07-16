@@ -48,6 +48,7 @@ public class AddRecipeServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			request.setCharacterEncoding("UTF-8");
 			// get parameters
 			String shop_id = request.getParameter("shop_id");
 			String re_name = request.getParameter("re_name");

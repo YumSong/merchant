@@ -16,7 +16,7 @@ public class IShopDaoTest {
 	private IShopDao dao = new ShopDaoImpl();
 	private Shop shop;
 	
-	@Before
+	/*@Before
 	public void before() {
 		shop = new Shop();
 	}
@@ -68,6 +68,6 @@ public class IShopDaoTest {
 	public void testDelete() {
 		shop.setShop_id(2);
 		Assert.assertNotNull(dao.delete(shop));
-	}
+	}*/
 
 }

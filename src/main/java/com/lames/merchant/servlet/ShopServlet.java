@@ -72,6 +72,8 @@ public class ShopServlet extends HttpServlet{
 	}
 	
 	private void doApply(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException{
+		request.setCharacterEncoding("UTF-8");
+		
 		MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(request.getParameterMap(), MerchantDetail.class);
 		Shop reqShop = (Shop) BeanUtil.mapToBean(request.getParameterMap(), Shop.class);
 		

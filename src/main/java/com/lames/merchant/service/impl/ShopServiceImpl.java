@@ -44,6 +44,7 @@ public class ShopServiceImpl implements IShopService {
 		
 		if(detail.getShopID() != null) {
 			shop.setShop_id(detail.getShopID());
+			shop.setMerchant_id(detail.getMerchantID());
 			shop = find(shop);
 			if(detail.getBusinessPic() != null) {
 				shop.setBusiness_pic(detail.getBusinessPic());

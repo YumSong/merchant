@@ -13,7 +13,7 @@ import com.lames.merchant.model.Merchant;
 
 public class BeanUtilTest {
 
-	@Test
+	/*@Test
 	public void testMapToBean() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("loginName", "Hello");
@@ -39,6 +39,6 @@ public class BeanUtilTest {
 		assertThat(map.get("loginName"), is("Hello"));
 		assertThat(map.get("loginPassword"), is("World"));
 		assertThat(map.get("merchantID"), is(007));
-	}
+	}*/
 
 }
