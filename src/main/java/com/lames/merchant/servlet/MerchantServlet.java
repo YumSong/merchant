@@ -21,7 +21,9 @@ import com.lames.merchant.model.Merchant;
 import com.lames.merchant.model.MerchantDetail;
 import com.lames.merchant.model.Shop;
 import com.lames.merchant.service.IMerchantService;
+import com.lames.merchant.service.IShopService;
 import com.lames.merchant.service.impl.MerchantServiceImpl;
+import com.lames.merchant.service.impl.ShopServiceImpl;
 import com.lames.merchant.util.BeanUtil;
 import com.lames.merchant.util.WebConnection;
 
@@ -96,6 +98,15 @@ public class MerchantServlet extends HttpServlet {
 		if(result.isStatus()) {
 			Map map = (Map)result.getData("merchantDetail");
 			MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(map, MerchantDetail.class);
+			if(detail.getStatus() == 1) {
+				IShopService shopService = new ShopServiceImpl();
+				Shop shop = new Shop();
+				shop.setMerchant_id(detail.getMerchantID());
+				System.out.println(shop.getMerchant_id());
+				Shop shop2 = shopService.find(shop);
+				System.out.println(shop2);
+				request.getSession().setAttribute("shop", shop2);
+			}
 			List<String> pics = (List<String>) map.get("shopPic");
 			request.getSession().setAttribute("merchantDetail", detail);
 			request.setAttribute("detail", detail);

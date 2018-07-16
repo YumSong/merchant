@@ -182,8 +182,7 @@ public class ShopDaoImpl implements IShopDao {
 	@Override
 	public Shop insertSimple(Shop shop) {
 		Connection conn = DBUtil.getConnection();
-		String sql = "insert into shop(shop_id,merchant_id,business_pic,address) " + 
-				     "values(S_shop.nextVal,?,?,?)";
+		String sql = "insert into shop(shop_id,merchant_id,business_pic,address) values(S_shop.nextVal,?,?,?)";
 		PreparedStatement ps = null;
 		int status = 0;
 		try {

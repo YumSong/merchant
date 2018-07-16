@@ -52,15 +52,6 @@ public class Shop {
 	}
 	
 	
-
-	public Integer getMerchant_id() {
-		return merchant_id;
-	}
-
-	public void setMerchant_id(Integer merchant_id) {
-		this.merchant_id = merchant_id;
-	}
-
 	public void setShop_name(String shop_name) {
 		this.shop_name = shop_name;
 	}

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.lames.merchant.model.Recipe;
+import com.lames.merchant.model.Shop;
 import com.lames.merchant.service.IRecipeService;
 import com.lames.merchant.service.impl.RecipeServiceImpl;
 
@@ -33,11 +34,17 @@ public class GetRecipeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		session.setAttribute("shop_id", 1374);
-		Integer shop_id = (Integer) session.getAttribute("shop_id");
-		List<Recipe> recipeList = service.findAll(shop_id);
-		request.setAttribute("recipeList", recipeList);
-		request.getRequestDispatcher("listRecipe.jsp").forward(request, response);
+		Shop shop = (Shop) session.getAttribute("shop");
+		System.out.println(shop);
+		if(shop != null) {
+			session.setAttribute("shop_id", shop.getShop_id());
+			Integer shop_id = (Integer) session.getAttribute("shop_id");
+			List<Recipe> recipeList = service.findAll(shop_id);
+			request.setAttribute("recipeList", recipeList);
+			request.getRequestDispatcher("listRecipe.jsp").forward(request, response);
+		}else {
+			response.sendRedirect(request.getContextPath() + "/merchant/detail");
+		}
 //	response.sendRedirect(request.getContextPath() + "/"  + "addRecipe.jsp");
 	}
 

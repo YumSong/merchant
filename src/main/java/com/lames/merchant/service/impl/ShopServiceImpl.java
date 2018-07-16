@@ -54,6 +54,7 @@ public class ShopServiceImpl implements IShopService {
 			shop.setAddress(detail.getAddress());
 			shop.setBusiness_pic(detail.getBusinessPic());
 			shop.setMerchant_id(detail.getMerchantID());
+			System.out.println(detail.getMerchantID());
 			dao.insertSimple(shop);
 			Shop shop2 = dao.findByMerchantId(detail.getMerchantID());
 			shop.setShop_id(shop2.getShop_id());
