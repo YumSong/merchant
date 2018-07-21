@@ -50,6 +50,8 @@ public class ShopServiceImpl implements IShopService {
 				shop.setBusiness_pic(detail.getBusinessPic());
 				shop.setAddress(detail.getAddress());
 			}
+			shop.setMerchant_id(detail.getMerchantID());
+			System.out.println(shop);
 			modify(shop);
 		}else {
 			reqShop.setMerchant_id(detail.getMerchantID());

@@ -34,5 +34,11 @@ public class Merchant {
 		this.merchantID = merchantID;
 	}
 
+	@Override
+	public String toString() {
+		return "Merchant [loginName=" + loginName + ", loginPassword=" + loginPassword + ", merchantID=" + merchantID
+				+ "]";
+	}
 
+	
 }

@@ -60,8 +60,8 @@ public class AddRecipeServlet extends HttpServlet {
 			Config config = WebServiceConfig.getConfig();
 			WebConnection conn = new WebConnection(config.get("image.upload"));
 			conn.setHeader("content-type", WebConnection.MUTIPART);
-			conn.addFile("re_pic", pic_part);
-			// post picture to resoucrce server.
+		
+			// post pi	conn.addFile("re_pic", pic_part);cture to resoucrce server.
 			String re_pic = conn.post();
 			
 			JsonResult pic_result = (JsonResult) JsonUtil.jsonToObject(re_pic, JsonResult.class);
