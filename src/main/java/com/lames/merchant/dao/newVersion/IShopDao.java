@@ -17,4 +17,5 @@ public interface IShopDao {
 
 	public Shop findByMerchantId(Shop shop);
 	
+	
 }
