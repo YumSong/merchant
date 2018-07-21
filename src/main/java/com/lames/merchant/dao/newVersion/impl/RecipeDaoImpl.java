@@ -46,15 +46,15 @@ public class RecipeDaoImpl implements IRecipeDao {
 	@Override
 	public int saveRecipe(Recipe recipe) {
 		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
-		int status = 0;
+		int recipeId = 0;
         try {
-        	status = sqlSession.save(recipe);
+        	recipeId = sqlSession.save(recipe);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			sqlSession.close();	
 		}
-		return status;
+		return recipeId;
 	}
 
 	@Override

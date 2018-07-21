@@ -8,9 +8,6 @@
         <dependent-module archiveName="WebMVC-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WebMVC/WebMVC">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="ORM-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/git_ORM/git_ORM">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="Validator-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Validator/Validator">
             <dependency-type>uses</dependency-type>
         </dependent-module>
