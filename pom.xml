@@ -39,16 +39,16 @@
 	    <version>2.4.0</version>
 	</dependency>
 	<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc6 -->
-	<!-- <dependency>
+	<dependency>
 	    <groupId>com.oracle</groupId>
 	    <artifactId>ojdbc6</artifactId>
 	    <version>11.2.0.3</version>
-	</dependency> -->
-	<dependency>
+	</dependency>
+<!-- 	<dependency>
        <groupId>com.jslsolucoes</groupId>
        <artifactId>ojdbc6</artifactId>
        <version>11.2.0.1.0</version>
-    </dependency>
+    </dependency> -->
 	<dependency>
 	    <groupId>httpunit</groupId>
 	    <artifactId>httpunit</artifactId>
@@ -73,7 +73,22 @@
 	    <groupId>javax.servlet</groupId>
 	    <artifactId>jstl</artifactId>
 	    <version>1.2</version>
-	</dependency>		
+	</dependency>	
+	<dependency>
+	    <groupId>com.jake</groupId>
+	    <artifactId>WebMVC</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.jake</groupId>
+	    <artifactId>ORM</artifactId>
+	    <version>1.0-SNAPSHOT</version>
+	</dependency>	
+	<dependency>
+	  <groupId>com.jake</groupId>
+	  <artifactId>Validator</artifactId>
+	  <version>1.0-SNAPSHOT</version>	
+	</dependency>	
   </dependencies>  
 	<build>
 		<finalName>merchant</finalName>
