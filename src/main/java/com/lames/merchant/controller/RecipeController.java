@@ -23,10 +23,18 @@ public class RecipeController {
 	@Mapping("/add")
 	public void addRecipe(Recipe recipe,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println(recipe);
+		// 获取商户登陆状态
 		Merchant merchant = (Merchant) session.getAttribute("merchant");
-		if(merchant == null) {
-			response.sendRedirect("index.jsp");
+		if(merchant == null || merchant.getMerchantID() == null) {
+			request.getRequestDispatcher("/index.jsp").forward(request, response);
+			return;
 		}
+		
+		
+		// 获取商店经营状态
+		
+		
+		
 //		request.setCharacterEncoding("UTF-8");
 //		
 //		// get pictrue url
@@ -55,4 +63,40 @@ public class RecipeController {
 //		request.getRequestDispatcher("getRecipe.do").forward(request, response);
 ////		response.sendRedirect(request.getContextPath() + "/recipe/get");
 	}
+	
+	@Mapping("/delete")
+	public void deleteRecipe(Recipe recipe,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		Recipe recipe = new Recipe();
+//		recipe.setRe_id(re_id);
+//		recipe.setShop_id(shop_id);
+//		service.delete(recipe);
+//		request.getRequestDispatcher("getRecipe.do").forward(request, response);
+	}	
+	
+	@Mapping("/get")
+	public void getRecipe(Recipe recipe,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		HttpSession session = request.getSession();
+//		Shop shop = (Shop) session.getAttribute("shop");
+//		System.out.println(shop);
+//		if(shop != null) {
+//			session.setAttribute("shop_id", shop.getShop_id());
+//			Integer shop_id = (Integer) session.getAttribute("shop_id");
+//			List<Recipe> recipeList = service.findAll(shop_id);
+//			request.setAttribute("recipeList", recipeList);
+//			request.getRequestDispatcher("listRecipe.jsp").forward(request, response);
+//		}else {
+//			response.sendRedirect(request.getContextPath() + "/merchant/detail");
+//		}
+//	response.sendRedirect(request.getContextPath() + "/"  + "addRecipe.jsp");
+	}	
+	
+	@Mapping("/getAll")
+	protected void getAllRecipe(Recipe recipe,HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		Integer re_id = Integer.parseInt(request.getParameter("re_id"));
+//		Recipe recipe = new Recipe();
+//		recipe.setRe_id(re_id);
+//		Recipe recipe1 = service.find(recipe);
+//		request.setAttribute("recipe", recipe1);
+//		request.getRequestDispatcher("modifyRecipe.jsp").forward(request, response);
+	}	
 }
