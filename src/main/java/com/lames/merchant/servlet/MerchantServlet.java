@@ -88,7 +88,7 @@ public class MerchantServlet extends HttpServlet {
 	}
 	
 	public void doDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Merchant merchant = (Merchant) request.getSession().getAttribute("merchant");
+		/*Merchant merchant = (Merchant) request.getSession().getAttribute("merchant");
 		if(merchant == null || merchant.getMerchantID() == null) {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 			return;
@@ -113,6 +113,6 @@ public class MerchantServlet extends HttpServlet {
 		}
 		//response.sendRedirect(request.getContextPath() + "jsp/merchant.jsp");
 		request.getRequestDispatcher("/WEB-INF/jsp/merchant.jsp").forward(request, response);
-		service.detail(merchant);
+		service.detail(merchant);*/
 	}
 }
