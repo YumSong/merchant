@@ -1,0 +1,12 @@
+<<<<<<< HEAD
+jdbc.divername=oracle.jdbc.OracleDriver
+jdbc.url=jdbc:oracle:thin:@10.222.29.150:1521:xe
+jdbc.user=system
+jdbc.password=root
+=======
+jdbc.divername=oracle.jdbc.OracleDriver
+jdbc.url=jdbc:oracle:thin:@10.222.29.150:1521:xe
+jdbc.user=system
+jdbc.password=root
+>>>>>>> branch 'HEAD' of https://github.com/YumSong/merchant.git
+model.package=com.lames.merchant.po

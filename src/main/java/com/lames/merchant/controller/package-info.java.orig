@@ -1,0 +1,18 @@
+<<<<<<< HEAD
+/**
+ * 
+ */
+/**
+ * @author FUVA2
+ *
+ */
+=======
+/**
+ * 
+ */
+/**
+ * @author FUVA2
+ *
+ */
+>>>>>>> branch 'HEAD' of https://github.com/YumSong/merchant.git
+package com.lames.merchant.controller;

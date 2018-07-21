@@ -1,0 +1,181 @@
+<<<<<<< HEAD
+package com.lames.merchant.dao.newVersion.impl;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.jake.core.Criteria;
+import com.jake.core.SqlSession;
+import com.lames.merchant.dao.newVersion.IRecipeDao;
+import com.lames.merchant.po.Recipe;
+import com.lames.merchant.util.SQLSessionUtil;
+
+public class RecipeDaoImpl implements IRecipeDao {
+
+	@Override
+	public Recipe findByRecipeId(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		Recipe result = null;
+        try {
+	        Criteria criteria = new Criteria();
+	        criteria.put("re_id=", recipe.getRecipeId());        	
+        	result = (Recipe) sqlSession.find(recipe, criteria);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Recipe> findAllByShopId(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		List<Recipe> recipeList = null;
+		try {
+	        Criteria criteria = new Criteria();
+	        criteria.put("shop_id=", recipe.getShopId());   
+			recipeList = sqlSession.findAll(Recipe.class, criteria);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return recipeList;
+	}
+
+	@Override
+	public int saveRecipe(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		int status = 0;
+        try {
+        	status = sqlSession.save(recipe);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();	
+		}
+		return status;
+	}
+
+	@Override
+	public int modifyRecipe(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		int status = 0;
+        try {
+			status = sqlSession.update(recipe);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return status;
+	}
+
+	@Override
+	public int deleteByRecipeId(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		int status = 0;
+		try {
+	        Criteria criteria = new Criteria();
+	        criteria.put("re_id=", recipe.getRecipeId());
+			status = sqlSession.delete(recipe, criteria);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return status;
+	}
+}
+=======
+package com.lames.merchant.dao.newVersion.impl;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import com.jake.core.Criteria;
+import com.jake.core.SqlSession;
+import com.lames.merchant.dao.newVersion.IRecipeDao;
+import com.lames.merchant.po.Recipe;
+import com.lames.merchant.util.SQLSessionUtil;
+
+public class RecipeDaoImpl implements IRecipeDao {
+
+	@Override
+	public Recipe findByRecipeId(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		Recipe result = null;
+        try {
+	        Criteria criteria = new Criteria();
+	        criteria.put("re_id=", recipe.getRecipeId());        	
+        	result = (Recipe) sqlSession.find(recipe, criteria);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Recipe> findAllByShopId(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		List<Recipe> recipeList = null;
+		try {
+	        Criteria criteria = new Criteria();
+	        criteria.put("shop_id=", recipe.getShopId());   
+			recipeList = sqlSession.findAll(Recipe.class, criteria);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return recipeList;
+	}
+
+	@Override
+	public int saveRecipe(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		int status = 0;
+        try {
+        	status = sqlSession.save(recipe);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();	
+		}
+		return status;
+	}
+
+	@Override
+	public int modifyRecipe(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		int status = 0;
+        try {
+			status = sqlSession.update(recipe);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return status;
+	}
+
+	@Override
+	public int deleteByRecipeId(Recipe recipe) {
+		SqlSession sqlSession = SQLSessionUtil.getSqlSession();
+		int status = 0;
+		try {
+	        Criteria criteria = new Criteria();
+	        criteria.put("re_id=", recipe.getRecipeId());
+			status = sqlSession.delete(recipe, criteria);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		return status;
+	}
+}
+>>>>>>> branch 'HEAD' of https://github.com/YumSong/merchant.git
