@@ -18,4 +18,5 @@ public interface IShopDao {
 	Shop findByMerchantId(Integer merchantID);
 
 	Shop insertSimple(Shop shop);
+	
 }
