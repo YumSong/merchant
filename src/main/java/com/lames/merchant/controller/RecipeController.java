@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.jake.model.Merchant;
 import com.jake.webmvc.annotation.Controller;
 import com.jake.webmvc.annotation.Mapping;
+import com.lames.merchant.po.Merchant;
 import com.lames.merchant.po.Recipe;
 import com.lames.merchant.service.IRecipeService;
 import com.lames.merchant.service.impl.RecipeServiceImpl;

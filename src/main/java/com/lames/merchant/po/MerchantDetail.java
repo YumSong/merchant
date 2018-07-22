@@ -1,21 +1,29 @@
 package com.lames.merchant.po;
 
-import java.util.Arrays;
-import java.util.List;
+import com.jake.annotation.Length;
+import com.jake.annotation.NotNull;
+import com.jake.annotation.Regex;
 
 
 public class MerchantDetail {
 
 	private Integer merchantDetailID;
 	private Integer merchantID;
-	private Integer idcardNum;
+	@Regex(reg="\\d{17}(X|\\d)",message="身份证格式错误")
+	private String idcardNum;
+	@NotNull(message="身份证照片不能为空")
 	private String idcardPic;
+	@Length(message="商家名字长度应在1-30位之间",min=1,max=30)
 	private String merchantName;
 	private Integer shopID;
 	private Integer status;// 狀態：0-待處理、 1-審核通過（拉白）、 2-駁回 3、不同意（拉黑）
-	private List<String> shopPic;
+	@NotNull(message="店内图片不能为空")
+	private String[] shopPic;
+	@NotNull(message="营业执照不能为空")
 	private String businessPic;
+	@Length(min=1,max=100,message="店铺地址应在1-100字之间")
 	private String address;
+	@Length(min=1,max=200,message="店铺介绍应在1-200字之间")
 	private String introduction;
 	
 
@@ -40,11 +48,12 @@ public class MerchantDetail {
 		this.merchantID = merchantID;
 	}
 
-	public Integer getIdcardNum() {
+	
+	public String getIdcardNum() {
 		return idcardNum;
 	}
 
-	public void setIdcardNum(Integer idcardNum) {
+	public void setIdcardNum(String idcardNum) {
 		this.idcardNum = idcardNum;
 	}
 
@@ -108,11 +117,12 @@ public class MerchantDetail {
 		this.introduction = introduction;
 	}
 
-	public List<String> getShopPic() {
+	
+	public String[] getShopPic() {
 		return shopPic;
 	}
 
-	public void setShopPic(List<String> shopPic) {
+	public void setShopPic(String[] shopPic) {
 		this.shopPic = shopPic;
 	}
 
