@@ -31,6 +31,7 @@ public class ShopServiceImpl implements IShopService {
 	@Override
 	public Shop modifyShop(Shop shop) {
 		int status = dao.modifyShop(shop);
+		System.out.println(shop);
 		if(status == 0) {
 			return null;
 		}
