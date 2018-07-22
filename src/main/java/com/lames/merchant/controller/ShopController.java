@@ -17,6 +17,19 @@ import com.lames.merchant.service.newVersion.impl.ShopServiceImpl;
 @Mapping("/shop")
 public class ShopController {
 	IShopService service = new ShopServiceImpl();
+  
+  @Mapping("/apply")
+	public void apply(MerchantDetail detail,HttpServletResponse response) throws IOException {
+		System.out.println(detail);
+		List<com.jake.model.Error> errors = ValidatorExecutor.validate(detail);
+		JsonResult jsonResult = new JsonResult();
+		if(errors.size() > 0) {
+			jsonResult.setStatus(false);
+			jsonResult.setData("errors", errors);
+		}
+		
+		response.getWriter().write(JsonUtil.objectToJson(jsonResult));
+	}
 	
 	@Mapping("/modify")
 	public void modifyShop(Shop shop, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -45,3 +58,4 @@ public class ShopController {
 		}
 	}	
 }
+

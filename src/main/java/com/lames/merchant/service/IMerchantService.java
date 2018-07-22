@@ -2,7 +2,7 @@ package com.lames.merchant.service;
 
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
-import com.lames.merchant.model.MerchantDetail;
+import com.lames.merchant.po.MerchantDetail;
 
 public interface IMerchantService {
 

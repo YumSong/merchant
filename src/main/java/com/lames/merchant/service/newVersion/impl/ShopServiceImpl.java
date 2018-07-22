@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.lames.merchant.dao.newVersion.IShopDao;
 import com.lames.merchant.dao.newVersion.impl.ShopDaoImpl;
+import com.lames.merchant.model.Merchant;
 import com.lames.merchant.po.MerchantDetail;
 import com.lames.merchant.po.Shop;
 import com.lames.merchant.service.newVersion.IShopService;
@@ -49,6 +50,16 @@ public class ShopServiceImpl implements IShopService {
 	@Override
 	public Shop apply(MerchantDetail detail, Shop reqShop) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Shop findByMerchantId(Merchant merchant) {
+		if(merchant.getMerchantID() != null) {
+			Shop shop = new Shop();
+			shop.setMerchantId(merchant.getMerchantID());
+			return dao.findByMerchantId(shop);
+		}
 		return null;
 	} 
 	
