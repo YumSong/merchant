@@ -1,3 +1,4 @@
+
 package com.lames.merchant.controller;
 
 import java.io.IOException;
@@ -33,10 +34,12 @@ public class ShopController {
 		}else {
 			MerchantDetail detail = merchant.getMerchantDetail();
 			Shop shop = merchant.getShop();
+			System.out.println(detail);
+			System.out.println(shop);
 			if(detail == null && shop == null) {
 				request.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(request, response);
 			}else {
-				response.sendRedirect(request.getContextPath() + "merchant/detail");
+				response.sendRedirect(request.getContextPath() + "/merchant/detail");
 			}
 		}
 	}
@@ -54,6 +57,7 @@ public class ShopController {
 			if(errors.size() > 0) {
 				jsonResult.setData("errors", errors);
 			}else {
+				detail.setMerchantID(merchant.getMerchantID());
 				shop.setMerchantId(merchant.getMerchantID());
 				Shop newShop = service.apply(detail,shop);
 				if(newShop == null) {
@@ -116,5 +120,6 @@ public class ShopController {
 		writer.write(JsonUtil.objectToJson(result));
 	}		
 }
+
 
 
