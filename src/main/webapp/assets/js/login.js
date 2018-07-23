@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     let formData = {};
     let $loginName = $("input[name=loginName]");
     let $loginPassword = $("input[name=loginPassword]");

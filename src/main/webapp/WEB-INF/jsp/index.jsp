@@ -24,15 +24,13 @@ MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchant
     <link rel="stylesheet" href="<%=basePath%>assets/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<%=basePath%>assets/vendor/linearicons/style.css">
     <link rel="stylesheet" href="<%=basePath%>assets/vendor/chartist/css/chartist-custom.css">
-    <link rel="stylesheet" href="<%=basePath%>assets/vendor/toastr/toastr.min.css">
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="<%=basePath%>assets/css/main.css">
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
     <link rel="stylesheet" href="<%=basePath%>assets/css/demo.css">
-
     <link rel="stylesheet" href="<%=basePath%>assets/css/common.css">
     <!-- GOOGLE FONTS -->
-    <!--<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">-->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet"> -->
     <!-- ICONS -->
     <link rel="apple-touch-icon" sizes="76x76" href="<%=basePath%>assets/img/apple-icon.png">
     <link rel="icon" type="image/png" sizes="96x96" href="<%=basePath%>assets/img/favicon.png">
@@ -52,73 +50,103 @@ MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchant
         <!-- MAIN CONTENT -->
         <div class="main-content">
             <div class="container-fluid">
-                <h3 class="page-title">申请商店</h3>
-                <div class="row">
-                    <div class="col-md-offset-2 col-md-8">
-                        <!-- PANEL NO CONTROLS -->
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">基本信息</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="form-group-lg">
-                                    <label>身份证号</label>
-                                    <input type="text" name="idcardNum" class="form-control input-lg" placeholder="身份证号">
-                                </div>
-                                <div class="form-group-lg">
-                                    <label>商家姓名</label>
-                                    <input type="email" name="merchantName" class="form-control input-lg" placeholder="商家姓名">
-                                </div>
-                                <div class="form-group-lg">
-                                    <label>店铺地址</label>
-                                    <input type="email" name="address" class="form-control input-lg" placeholder="店铺地址">
-                                </div>
-                                <div class="form-group-lg">
-                                    <label>店铺简介</label>
-                                    <textarea class="form-control" name="introduction" placeholder="店铺简介" rows="4"></textarea>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="panel-heading">
-                                <h3 class="panel-title">身份证图片</h3>
-                                <div class="image-row">
-                                    <div>
-                                        <a id="add-id-img-btn" class="add-img-btn">
-                                            <img src="<%=basePath%>assets/img/add_img.png">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="panel-heading">
-                                <h3 class="panel-title">执照</h3>
-                                <div class="image-row">
-                                    <div>
-                                        <a id="add-zz-img-btn" class="add-img-btn">
-                                            <img src="<%=basePath%>assets/img/add_img.png">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="panel-heading">
-                                <h3 class="panel-title">店铺照片</h3>
-                                <div class="image-row">
-                                    <div>
-                                        <a id="add-shop-img-btn" class="add-img-btn">
-                                            <img src="<%=basePath%>assets/img/add_img.png">
-                                        </a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div>
-                                <button type="button" class="btn btn-primary btn-block btn-lg" id="submit-btn">提交申请</button>
-                            </div>
-                        </div>
-                        <!-- END PANEL NO CONTROLS -->
-                    </div>
-                </div>
+                <h3 class="page-title">商家详细信息</h3>
+	            <c:choose>
+				    <c:when test="${merchant.merchantDetail == null}">
+		                <div class="row">
+		                    <div class="col-md-12">
+		                        <div class="panel panel-headline">
+		                            <div class="panel-heading">
+		                                <h3 class="panel-title">还没开通店铺? <a href="<%=basePath%>shop/new">申请开通</a></h3>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+                	</c:when>
+                	<c:when test="${merchant.shop != null}">
+		                <div class="row">
+		                    <div class="col-md-12">
+		                        <div class="panel panel-headline">
+		                            <div class="panel-heading">
+		                                <h3 class="panel-title">店铺申请成功请等待审核</h3>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+                	</c:when>
+                	<c:otherwise>
+		                <div class="row">
+		                    <div class="col-md-12" style="height: 100%">
+		                        <!-- PANEL HEADLINE -->
+		                        <div class="panel panel-headline" style="height: 100%">
+		                            <div class="panel-body row" style="height: 100%">
+		                                <div class="col-md-4">
+		                                    <h2>基本信息</h2>
+		                                    <div class="row">
+		                                        <h4>商家店铺详情ID : ${detail.merchantDetailID}</h4>
+		                                        <h4>商家ID : ${detail.merchantID}</h4>
+		                                        <h4>商家身份证ID : ${detail.idcardNum}</h4>
+		                                        <h4>商家姓名 : ${detail.merchantName}</h4>
+		                                        <h4>店铺状态 : 
+		                                        	<c:choose>
+														<c:when test="${detail.status == 0}"> 
+															待處理 
+														</c:when>
+														<c:when test="${detail.status == 1}"> 
+															審核通過 <a href="<%=basePath%>getRecipe.do">管理商店</a>
+														</c:when>
+														<c:when test="${detail.status == 2}"> 
+															駁回 <a href="<%=basePath%>shop/update">修改</a>
+														</c:when>
+														<c:when test="${detail.status == 3}"> 
+															不同意 
+														</c:when>
+													</c:choose>
+		                                        </h4>
+		                                        <h4>店铺简介 : ${detail.introduction}</h4>
+		                                    </div>
+		                                </div>
+		                                <div class="col-md-8">
+		                                    <div class="row">
+		                                        <div class="col-md-6">
+		                                            <h2>营业执照</h2>
+		                                            <div style="height: 200px;">
+		                                                <img style="height: 100%" src="<%=imgServer%>${detail.businessPic}">
+		                                            </div>
+		                                        </div>
+		                                        <div class="col-md-6">
+		                                            <h2>身份证照片</h2>
+		                                            <div style="height: 200px;">
+		                                                <img style="height: 100%" src="<%=imgServer%>${detail.idcardPic}">
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!-- END PANEL HEADLINE -->
+		                    </div>
+		                    <div class="col-md-12">
+		                        <!-- PANEL HEADLINE -->
+		                        <div class="panel panel-headline">
+		                            <div class="panel-body">
+		                                <div>
+		                                    <h2>店铺图片</h2>
+		                                    <div class="row" style="height: 300px;">
+			                                    <c:forEach items="${detail.shopPic}" var="pic">
+				                                    <div  style="height: 100%" class="col-md-4">
+			                                            <img style="height: 100%;width: 100%;" src="<%=imgServer%>${pic}">
+			                                        </div>
+												</c:forEach>
+		                                    </div>
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!-- END PANEL HEADLINE -->
+		                    </div>
+		                </div>
+	                </c:otherwise>
+            	</c:choose>
             </div>
         </div>
         <!-- END MAIN CONTENT -->
@@ -127,23 +155,23 @@ MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchant
     <div class="clearfix"></div>
     <footer>
         <div class="container-fluid">
-            <p class="copyright">Copyright &copy; 2017.Company name All rights reserved.</p>
+            <p class="copyright">Copyright &copy; 2017.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
         </div>
     </footer>
 </div>
 <!-- END WRAPPER -->
 <!-- Javascript -->
-<script>
-window.contextPath = "<%=basePath%>";
-</script>
 <script src="<%=basePath%>assets/vendor/jquery/jquery.min.js"></script>
 <script src="<%=basePath%>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="<%=basePath%>assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="<%=basePath%>assets/js/index.js"></script>
-<script src="<%=basePath%>assets/js/validator.js"></script>
-<script src="<%=basePath%>assets/vendor/toastr/toastr.min.js"></script>
+<script src="<%=basePath%>assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="<%=basePath%>assets/vendor/chartist/js/chartist.min.js"></script>
+<script src="<%=basePath%>assets/scripts/klorofil-common.js"></script>
 <script>
-    /*$(function() {
+	window.contextPath = "<%=basePath%>";
+</script>
+<script>
+    /* $(function() {
         var data, options;
 
         // headline charts
@@ -258,10 +286,9 @@ window.contextPath = "<%=basePath%>";
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-    });*/
+    }); */
 </script>
-<!--<script src="assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
-<script src="assets/vendor/chartist/js/chartist.min.js"></script>
-<script src="assets/scripts/klorofil-common.js"></script>-->
+
 </body>
+
 </html>
