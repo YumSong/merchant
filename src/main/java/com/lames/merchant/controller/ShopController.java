@@ -3,6 +3,8 @@ package com.lames.merchant.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,6 +17,7 @@ import com.jake.webmvc.annotation.Controller;
 import com.jake.webmvc.annotation.Mapping;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
+import com.lames.merchant.model.MerchantDetailStatus;
 import com.lames.merchant.po.MerchantDetail;
 import com.lames.merchant.po.Shop;
 import com.lames.merchant.service.newVersion.IShopService;
