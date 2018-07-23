@@ -52,13 +52,13 @@ public class MerchantController {
 		Merchant merchant = (Merchant) session.getAttribute("merchant");
 		
 		if(merchant == null || merchant.getMerchantID() == null) {
-			response.sendRedirect(request.getServletPath() + "/index.jsp");
+			response.sendRedirect(request.getServletPath() + "/login.jsp");
 			return;
 		}
 		
 		service.detail(merchant);
 
-		request.getRequestDispatcher("/WEB-INF/jsp/merchant.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		
 	}
 }

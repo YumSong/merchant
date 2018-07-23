@@ -12,12 +12,12 @@ String imgServer = WebServiceConfig.getConfig().get("image.server");
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>注册</title>
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/vendor/linearicons/style.css">
-    <link rel="stylesheet" href="assets/vendor/chartist/css/chartist-custom.css">
-    <link rel="stylesheet" href="assets/vendor/toastr/toastr.min.css">
-    <link href="assets/css/common.css" rel="stylesheet">
+    <link rel="stylesheet" href="<%=basePath%>assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=basePath%>assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<%=basePath%>assets/vendor/linearicons/style.css">
+    <link rel="stylesheet" href="<%=basePath%>assets/vendor/chartist/css/chartist-custom.css">
+    <link rel="stylesheet" href="<%=basePath%>assets/vendor/toastr/toastr.min.css">
+    <link href="<%=basePath%>assets/css/common.css" rel="stylesheet">
 </head>
 <style>
     *{
@@ -109,13 +109,13 @@ String imgServer = WebServiceConfig.getConfig().get("image.server");
         </div>
     </div>
 </div>
-<script src="assets/vendor/jquery/jquery.min.js"></script>
-<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<script src="assets/js/index.js"></script>
-<script src="assets/js/validator.js"></script>
-<script src="assets/vendor/toastr/toastr.min.js"></script>
-<script src="assets/js/login.js"></script>
+<script src="<%=basePath%>assets/vendor/jquery/jquery.min.js"></script>
+<script src="<%=basePath%>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=basePath%>assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="<%=basePath%>assets/js/index.js"></script>
+<script src="<%=basePath%>assets/js/validator.js"></script>
+<script src="<%=basePath%>assets/vendor/toastr/toastr.min.js"></script>
+<script src="<%=basePath%>assets/js/login.js"></script>
 <script>
 	window.contextPath = "<%=basePath%>";
     $(document).ready(function () {

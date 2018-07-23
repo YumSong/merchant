@@ -65,15 +65,16 @@ $(document).ready(function () {
         console.log(formData);
         if(validator.validateAll(formData,true)){
             $.ajax({
-                url: "http://localhost:9090/merchant/shop/apply",
+                url: window.contextPath + "shop/apply",
                 method: "post",
                 data: formData,
                 dataType: "json",
                 traditional: true,
 
                 success: (data) => {
+                	console.log(data);
                     if(data.status){
-                        window.location = "http://localhost:9090/index.html";
+                        window.location = window.contextPath + "merchant/detail";
                     }else{
                         let errors = data.data["errors"];
                         console.log(errors);
