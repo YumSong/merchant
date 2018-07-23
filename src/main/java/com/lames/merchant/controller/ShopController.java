@@ -1,3 +1,4 @@
+
 package com.lames.merchant.controller;
 
 import java.io.IOException;
@@ -14,7 +15,6 @@ import com.jake.webmvc.annotation.Controller;
 import com.jake.webmvc.annotation.Mapping;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
-import com.lames.merchant.model.MerchantDetailStatus;
 import com.lames.merchant.po.MerchantDetail;
 import com.lames.merchant.po.Shop;
 import com.lames.merchant.service.newVersion.IShopService;
@@ -26,7 +26,7 @@ import com.lames.merchant.util.JsonUtil;
 public class ShopController {
 	IShopService service = new ShopServiceImpl();
 	
-	@Mapping("/new")
+@Mapping("/new")
 	public void newShop(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException, IOException {
 		Merchant merchant = (Merchant) session.getAttribute("merchant");
 		if(merchant == null) {
@@ -129,7 +129,26 @@ public class ShopController {
 		}
 		writer.write(JsonUtil.objectToJson(result));
 	}		
+  
+	@Mapping("/shopIndex")
+	public void listAllShop(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+//		response.setHeader("Access-Control-Allow-Origin", "*");
+		PrintWriter writer = response.getWriter();
+//		Merchant merchant = (Merchant) session.getAttribute("merchant");
+		Merchant merchant = new Merchant();
+		merchant.setMerchantID(258);
+		Shop shop = (Shop) service.findByMerchantId(merchant);
+
+		String[] shopPics = shop.getShopPic().split(";;");
+		System.out.println(shop);
+		request.setAttribute("shopPics", shopPics);	
+		request.setAttribute("shop", shop);
+		
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+		request.setAttribute("serviceStartTime", formatter.format(new Date(shop.getServiceStartTime())));
+		request.setAttribute("servicEndTime", formatter.format(new Date(shop.getServicEndTime())));
+		request.setAttribute("addShopPic", "58c081e/f324097/368367e/81c75c77bcd.jpg");
+		request.getRequestDispatcher("/shopManager.jsp").forward(request, response);
+	}	  
 }
-
-
-
