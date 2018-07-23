@@ -9,7 +9,7 @@
 String path = request.getContextPath(); 
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"; 
 String imgServer = WebServiceConfig.getConfig().get("image.server");
-MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchantDetail();
+
 %>
 <!doctype html>
 <html lang="en">
@@ -63,7 +63,7 @@ MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchant
 		                    </div>
 		                </div>
                 	</c:when>
-                	<c:when test="${merchant.shop != null}">
+                	<c:when test="${merchant.shop != null && merchant.merchantDetail == null}">
 		                <div class="row">
 		                    <div class="col-md-12">
 		                        <div class="panel panel-headline">
@@ -83,27 +83,27 @@ MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchant
 		                                <div class="col-md-4">
 		                                    <h2>基本信息</h2>
 		                                    <div class="row">
-		                                        <h4>商家店铺详情ID : ${detail.merchantDetailID}</h4>
-		                                        <h4>商家ID : ${detail.merchantID}</h4>
-		                                        <h4>商家身份证ID : ${detail.idcardNum}</h4>
-		                                        <h4>商家姓名 : ${detail.merchantName}</h4>
+		                                        <h4>商家店铺详情ID : ${merchant.merchantDetail.merchantDetailID}</h4>
+		                                        <h4>商家ID : ${merchant.merchantDetail.merchantID}</h4>
+		                                        <h4>商家身份证ID : ${merchant.merchantDetail.idcardNum}</h4>
+		                                        <h4>商家姓名 : ${merchant.merchantDetail.merchantName}</h4>
 		                                        <h4>店铺状态 : 
 		                                        	<c:choose>
-														<c:when test="${detail.status == 0}"> 
+														<c:when test="${merchant.merchantDetail.status == 0}"> 
 															待處理 
 														</c:when>
-														<c:when test="${detail.status == 1}"> 
+														<c:when test="${merchant.merchantDetail.status == 1}"> 
 															審核通過 <a href="<%=basePath%>getRecipe.do">管理商店</a>
 														</c:when>
-														<c:when test="${detail.status == 2}"> 
+														<c:when test="${merchant.merchantDetail.status == 2}"> 
 															駁回 <a href="<%=basePath%>shop/update">修改</a>
 														</c:when>
-														<c:when test="${detail.status == 3}"> 
+														<c:when test="${merchant.merchantDetail.status == 3}"> 
 															不同意 
 														</c:when>
 													</c:choose>
 		                                        </h4>
-		                                        <h4>店铺简介 : ${detail.introduction}</h4>
+		                                        <h4>店铺简介 : ${merchant.merchantDetail.introduction}</h4>
 		                                    </div>
 		                                </div>
 		                                <div class="col-md-8">
@@ -111,13 +111,13 @@ MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchant
 		                                        <div class="col-md-6">
 		                                            <h2>营业执照</h2>
 		                                            <div style="height: 200px;">
-		                                                <img style="height: 100%" src="<%=imgServer%>${detail.businessPic}">
+		                                                <img style="height: 100%" src="<%=imgServer%>${merchant.merchantDetail.businessPic}">
 		                                            </div>
 		                                        </div>
 		                                        <div class="col-md-6">
 		                                            <h2>身份证照片</h2>
 		                                            <div style="height: 200px;">
-		                                                <img style="height: 100%" src="<%=imgServer%>${detail.idcardPic}">
+		                                                <img style="height: 100%" src="<%=imgServer%>${merchant.merchantDetail.idcardPic}">
 		                                            </div>
 		                                        </div>
 		                                    </div>
@@ -133,7 +133,7 @@ MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchant
 		                                <div>
 		                                    <h2>店铺图片</h2>
 		                                    <div class="row" style="height: 300px;">
-			                                    <c:forEach items="${detail.shopPic}" var="pic">
+			                                    <c:forEach items="${merchant.merchantDetail.shopPic}" var="pic">
 				                                    <div  style="height: 100%" class="col-md-4">
 			                                            <img style="height: 100%;width: 100%;" src="<%=imgServer%>${pic}">
 			                                        </div>

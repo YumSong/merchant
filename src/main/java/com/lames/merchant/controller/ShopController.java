@@ -2,10 +2,6 @@ package com.lames.merchant.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,8 +12,6 @@ import javax.servlet.http.HttpSession;
 import com.jake.ValidatorExecutor;
 import com.jake.webmvc.annotation.Controller;
 import com.jake.webmvc.annotation.Mapping;
-import com.lames.merchant.config.Config;
-import com.lames.merchant.config.WebServiceConfig;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
 import com.lames.merchant.po.MerchantDetail;
@@ -39,10 +33,12 @@ public class ShopController {
 		}else {
 			MerchantDetail detail = merchant.getMerchantDetail();
 			Shop shop = merchant.getShop();
+			System.out.println(detail);
+			System.out.println(shop);
 			if(detail == null && shop == null) {
 				request.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(request, response);
 			}else {
-				response.sendRedirect(request.getContextPath() + "merchant/detail");
+				response.sendRedirect(request.getContextPath() + "/merchant/detail");
 			}
 		}
 	}
@@ -60,6 +56,7 @@ public class ShopController {
 			if(errors.size() > 0) {
 				jsonResult.setData("errors", errors);
 			}else {
+				detail.setMerchantID(merchant.getMerchantID());
 				shop.setMerchantId(merchant.getMerchantID());
 				Shop newShop = service.apply(detail,shop);
 				if(newShop == null) {
@@ -80,9 +77,7 @@ public class ShopController {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter writer = response.getWriter();
 		JsonResult result = new JsonResult();
-		Shop shop1 = service.modifyShop(shop);
-		System.out.println(shop1);
-		if(shop1 != null) {
+		if(service.modifyShop(shop) != null) {
 			result.setStatus(true);
 			result.setMessage("修改成功!");
 		}else {
@@ -123,8 +118,7 @@ public class ShopController {
 		}
 		writer.write(JsonUtil.objectToJson(result));
 	}		
-	
-	
+  
 	@Mapping("/shopIndex")
 	public void listAllShop(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 //		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -145,7 +139,5 @@ public class ShopController {
 		request.setAttribute("servicEndTime", formatter.format(new Date(shop.getServicEndTime())));
 		request.setAttribute("addShopPic", "58c081e/f324097/368367e/81c75c77bcd.jpg");
 		request.getRequestDispatcher("/shopManager.jsp").forward(request, response);
-	}	
+	}	  
 }
-
-
