@@ -57,6 +57,7 @@ public class MerchantController {
 		}
 		
 		service.detail(merchant);
+		System.out.println(merchant.getMerchantDetail());
 
 		request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
 		

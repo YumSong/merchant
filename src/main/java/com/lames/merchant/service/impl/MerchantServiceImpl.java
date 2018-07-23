@@ -1,6 +1,7 @@
 package com.lames.merchant.service.impl;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import com.jake.util.BeanUtil;
@@ -8,7 +9,6 @@ import com.lames.merchant.config.Config;
 import com.lames.merchant.config.WebServiceConfig;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
-import com.lames.merchant.model.MerchantDetailStatus;
 import com.lames.merchant.po.MerchantDetail;
 import com.lames.merchant.po.Shop;
 import com.lames.merchant.service.IMerchantService;
@@ -81,8 +81,13 @@ public class MerchantServiceImpl implements IMerchantService {
 				
 				if(result.isStatus()) {
 					Map map = (Map)result.getData("merchantDetail");
+					System.out.println(map);
+					System.out.println(str);
 					MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(map, MerchantDetail.class);
+					detail.setShopPic(((List<String>)map.get("shopPic")).toArray(new String[0]));
+					System.out.println("detail3"+detail);
 					merchant.setMerchantDetail(detail);
+					
 				}
 			} catch (IOException e) {
 				result = new JsonResult();

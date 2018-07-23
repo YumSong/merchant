@@ -59,6 +59,7 @@ public class ShopServiceImpl implements IShopService {
 			int count = dao.saveShop(shop);
 			if(count > 0) {
 				newShop = shop;
+				System.out.println(detail);
 				JMSUtil.send(JsonUtil.objectToJson(detail));
 			}
 		}
