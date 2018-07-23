@@ -29,8 +29,9 @@ public class Shop {
 	@Column("address")
 	private String address;
 	@Column("merchant_id")
-	
 	private Integer merchantId;
+	@Column("introduction")
+	private String introduction;
 	
 	public Integer getShopId() {
 		return shopId;
@@ -94,13 +95,21 @@ public class Shop {
 	public void setServicEndTime(Long servicEndTime) {
 		this.servicEndTime = servicEndTime;
 	}
+	
+	public String getIntroduction() {
+		return introduction;
+	}
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+	
 	@Override
 	public String toString() {
 		return "Shop [shopId=" + shopId + ", shopName=" + shopName + ", serviceStartTime=" + serviceStartTime
 				+ ", servicEndTime=" + servicEndTime + ", serviceRange=" + serviceRange + ", distributionCost="
 				+ distributionCost + ", shopPic=" + shopPic + ", businessPic=" + businessPic + ", address=" + address
-				+ ", merchantId=" + merchantId + "]\n";
+				+ ", merchantId=" + merchantId + ", introduction=" + introduction + "]\n";
 	}
-	
+
 
 }

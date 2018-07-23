@@ -2,6 +2,8 @@ package com.lames.merchant.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,6 +16,7 @@ import com.jake.webmvc.annotation.Mapping;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.po.Merchant;
 import com.lames.merchant.po.Recipe;
+import com.lames.merchant.po.Shop;
 import com.lames.merchant.service.newVersion.IRecipeService;
 import com.lames.merchant.service.newVersion.impl.RecipeServiceImpl;
 import com.lames.merchant.util.JsonUtil;
@@ -95,18 +98,17 @@ public class RecipeController {
 	}
 	
 	@Mapping("/listAll")
-	public void listAllRecipe(Recipe recipe, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void listAllRecipe(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		PrintWriter writer = response.getWriter();
-		JsonResult result = new JsonResult();
+//		Merchant merchant = (Merchant) session.getAttribute("merchant");
+//		Merchant merchant = new Merchant();
+//		merchant.setMerchantID(258);
+		Recipe recipe = new Recipe();
+		recipe.setShopId(258);
 		List<Recipe> recipeList = service.findAllByShopId(recipe);
-		if(recipeList != null && !recipeList.isEmpty()) {
-			result.setStatus(true);
-			result.setMessage("成功找到菜!");
-		}else {
-			result.setStatus(false);
-			result.setMessage("抱歉，您还没有菜!");
-		}
-		writer.write(JsonUtil.objectToJson(result));		
+		
+		request.setAttribute("recipeList", recipeList);
+		request.getRequestDispatcher("/recipeManager.jsp").forward(request, response);
 	}	
 }
