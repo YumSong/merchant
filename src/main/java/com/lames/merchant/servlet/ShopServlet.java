@@ -68,7 +68,7 @@ public class ShopServlet extends HttpServlet{
 	}
 
 	private void doNew(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		req.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(req, resp);
+		
 	}
 	
 	private void doApply(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException{
