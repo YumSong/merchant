@@ -82,10 +82,16 @@ public class MerchantServiceImpl implements IMerchantService {
 				if(result.isStatus()) {
 					Map map = (Map)result.getData("merchantDetail");
 					System.out.println(map);
-					System.out.println(str);
 					MerchantDetail detail = (MerchantDetail) BeanUtil.mapToBean(map, MerchantDetail.class);
-					detail.setShopPic(((List<String>)map.get("shopPic")).toArray(new String[0]));
-					System.out.println("detail3"+detail);
+					List<String> pics = (List<String>)map.get("shopPic");
+					if(pics != null) {
+						String[] detailPics = new String[pics.size()];
+						int index = 0;
+						for(String pic : pics) {
+							detailPics[index++] = pic;
+						}
+						detail.setShopPic(detailPics);
+					}
 					merchant.setMerchantDetail(detail);
 					
 				}

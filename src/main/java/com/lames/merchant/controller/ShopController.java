@@ -1,3 +1,4 @@
+
 package com.lames.merchant.controller;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ import com.lames.merchant.util.JsonUtil;
 public class ShopController {
 	IShopService service = new ShopServiceImpl();
 	
-	@Mapping("/new")
+@Mapping("/new")
 	public void newShop(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException, IOException {
 		Merchant merchant = (Merchant) session.getAttribute("merchant");
 		if(merchant == null) {
@@ -35,11 +36,21 @@ public class ShopController {
 			Shop shop = merchant.getShop();
 			System.out.println(detail);
 			System.out.println(shop);
-			if(detail == null && shop == null) {
+			if((detail == null && shop == null) || detail.getStatus() == MerchantDetailStatus.REJECTED) {
 				request.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(request, response);
 			}else {
 				response.sendRedirect(request.getContextPath() + "/merchant/detail");
 			}
+		}
+	}
+	
+	@Mapping("/update")
+	public void update(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException, IOException {
+		Merchant merchant = (Merchant) session.getAttribute("merchant");
+		if(merchant.getMerchantDetail() == null) {
+			response.sendRedirect(request.getContextPath() + "/merchant/detail");
+		}else {
+			request.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(request, response);
 		}
 	}
   
