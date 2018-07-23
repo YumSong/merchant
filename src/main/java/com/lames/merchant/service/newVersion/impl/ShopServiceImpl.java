@@ -27,14 +27,16 @@ public class ShopServiceImpl implements IShopService {
 
 	@Override
 	public Shop saveShop(Shop shop) {
-		dao.saveShop(shop);
+		int status = dao.saveShop(shop);
+		if(status == 0) {
+			return null;
+		}
 		return shop;
 	}
 
 	@Override
 	public Shop modifyShop(Shop shop) {
 		int status = dao.modifyShop(shop);
-		System.out.println(shop);
 		if(status == 0) {
 			return null;
 		}
