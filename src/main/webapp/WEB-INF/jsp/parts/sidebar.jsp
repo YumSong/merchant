@@ -8,8 +8,6 @@
 String path = request.getContextPath(); 
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"; 
 String imgServer = WebServiceConfig.getConfig().get("image.server");
-MerchantDetail detail = ((Merchant)session.getAttribute("merchant")).getMerchantDetail();
-Shop shop = ((Merchant)session.getAttribute("merchant")).getShop();
 String url = request.getRequestURI();
 %>
 <%@ taglib prefix="c"  uri= "http://java.sun.com/jsp/jstl/core" %>  
@@ -18,7 +16,7 @@ String url = request.getRequestURI();
          <nav>
              <ul class="nav">
                  <li><a href="<%=basePath%>merchant/detail" class="<%= url.endsWith("index.jsp") ? "active": "" %>"><i class="lnr lnr-home"></i> <span>商家详细信息</span></a></li>
-                 <c:if test="${(detail == null && shop == null) || detail.status == 2}"> 
+                 <c:if test="${(merchant.merchantDetail == null && merchant.shop == null) || detail.status == 2}"> 
                  	<li><a href="<%=basePath%>shop/new" class="<%= url.endsWith("shop_form.jsp") ? "active": "" %>"><i class="lnr lnr-code"></i> <span>申请店铺</span></a></li>
                  </c:if>
                  <!--<li><a href="charts.html" class=""><i class="lnr lnr-chart-bars"></i> <span>Charts</span></a></li>

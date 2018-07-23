@@ -1,4 +1,3 @@
-
 package com.lames.merchant.controller;
 
 import java.io.IOException;
@@ -15,6 +14,7 @@ import com.jake.webmvc.annotation.Controller;
 import com.jake.webmvc.annotation.Mapping;
 import com.lames.merchant.model.JsonResult;
 import com.lames.merchant.model.Merchant;
+import com.lames.merchant.model.MerchantDetailStatus;
 import com.lames.merchant.po.MerchantDetail;
 import com.lames.merchant.po.Shop;
 import com.lames.merchant.service.newVersion.IShopService;
@@ -36,11 +36,21 @@ public class ShopController {
 			Shop shop = merchant.getShop();
 			System.out.println(detail);
 			System.out.println(shop);
-			if(detail == null && shop == null) {
+			if((detail == null && shop == null) || detail.getStatus() == MerchantDetailStatus.REJECTED) {
 				request.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(request, response);
 			}else {
 				response.sendRedirect(request.getContextPath() + "/merchant/detail");
 			}
+		}
+	}
+	
+	@Mapping("/update")
+	public void update(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException, IOException {
+		Merchant merchant = (Merchant) session.getAttribute("merchant");
+		if(merchant.getMerchantDetail() == null) {
+			response.sendRedirect(request.getContextPath() + "/merchant/detail");
+		}else {
+			request.getRequestDispatcher("/WEB-INF/jsp/shop_form.jsp").forward(request, response);
 		}
 	}
   
